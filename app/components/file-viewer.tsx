@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import styles from "./file-viewer.module.css";
 
 const TrashIcon = () => (
   <svg
-    className={styles.fileDeleteIcon}
+    className={""}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 12 12"
     height="12"
@@ -55,20 +54,20 @@ const FileViewer = () => {
   };
 
   return (
-    <div className={styles.fileViewer}>
+    <div className={""}>
       <div
-        className={`${styles.filesList} ${
-          files.length !== 0 ? styles.grow : ""
+        className={`${""} ${
+          files.length !== 0 ? "" : ""
         }`}
       >
         {files.length === 0 ? (
-          <div className={styles.title}>Attach files to test file search</div>
+          <div className={""}>Attach files to test file search</div>
         ) : (
           files.map((file) => (
-            <div key={file.file_id} className={styles.fileEntry}>
-              <div className={styles.fileName}>
-                <span className={styles.fileName}>{file.filename}</span>
-                <span className={styles.fileStatus}>{file.status}</span>
+            <div key={file.file_id} className={""}>
+              <div className={""}>
+                <span className={""}>{file.filename}</span>
+                <span className={""}>{file.status}</span>
               </div>
               <span onClick={() => handleFileDelete(file.file_id)}>
                 <TrashIcon />
@@ -77,15 +76,15 @@ const FileViewer = () => {
           ))
         )}
       </div>
-      <div className={styles.fileUploadContainer}>
-        <label htmlFor="file-upload" className={styles.fileUploadBtn}>
+      <div className={""}>
+        <label htmlFor="file-upload" className={""}>
           Attach files
         </label>
         <input
           type="file"
           id="file-upload"
           name="file-upload"
-          className={styles.fileUploadInput}
+          className={""}
           multiple
           onChange={handleFileUpload}
         />

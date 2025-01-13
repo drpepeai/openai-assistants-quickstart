@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import styles from "./chat.module.css";
 import { AssistantStream } from "openai/lib/AssistantStream";
 import Markdown from "react-markdown";
 // @ts-expect-error - no types for this yet
@@ -14,20 +13,26 @@ type MessageProps = {
 };
 
 const UserMessage = ({ text }: { text: string }) => {
-  return <div className={styles.userMessage}>{text}</div>;
+  return (
+    <div className="flex flex-row justify-end">
+      <p className="text-white bg-blue-600 p-4 rounded-md">{text}</p>
+    </div>
+  );
 };
 
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
-    <div className={styles.assistantMessage}>
+    <div className="w-10/12">
+      <div className="p-4 bg-gray-600 rounded-md">
       <Markdown>{text}</Markdown>
+      </div>
     </div>
   );
 };
 
 const CodeMessage = ({ text }: { text: string }) => {
   return (
-    <div className={styles.codeMessage}>
+    <div className={""}>
       {text.split("\n").map((line, index) => (
         <div key={index}>
           <span>{`${index + 1}. `}</span>
@@ -64,7 +69,7 @@ const Chat = ({
   const [messages, setMessages] = useState([]);
   const [inputDisabled, setInputDisabled] = useState(false);
   const [threadId, setThreadId] = useState("");
-
+  const [loading, setLoading] = useState(false);
   // automatically scroll to bottom of chat
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const scrollToBottom = () => {
@@ -87,6 +92,7 @@ const Chat = ({
   }, []);
 
   const sendMessage = async (text) => {
+    setLoading(true);
     const response = await fetch(
       `/api/assistants/threads/${threadId}/messages`,
       {
@@ -97,7 +103,9 @@ const Chat = ({
       }
     );
     const stream = AssistantStream.fromReadableStream(response.body);
+
     handleReadableStream(stream);
+    setLoading(false);
   };
 
   const submitActionResult = async (runId, toolCallOutputs) => {
@@ -245,36 +253,39 @@ const Chat = ({
       })
       return [...prevMessages.slice(0, -1), updatedLastMessage];
     });
-    
+
   }
 
   return (
-    <div className={styles.chatContainer}>
-      <div className={styles.messages}>
+    <div className={"w-full h-full justify-center items-center bg-gray-900 p-4"}>
+      <div className={"w-full text-white space-y-4"}>
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role} text={msg.text} />
         ))}
         <div ref={messagesEndRef} />
+        {loading && <div className="text-white">Loading...</div>}
       </div>
-      <form
-        onSubmit={handleSubmit}
-        className={`${styles.inputForm} ${styles.clearfix}`}
-      >
+      <div className={"w-full mt-4"}>
         <input
+          id="question"
+          name="question"
           type="text"
-          className={styles.input}
+          placeholder="Enter your question"
+          aria-label="question"
+          className="w-6/12 px-4 py-2 bg-gray-900 text-white focus:outline-none border-b border-white"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
-          placeholder="Enter your question"
         />
         <button
-          type="submit"
-          className={styles.button}
+          type="button"
+          className="ml-4 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed"
           disabled={inputDisabled}
+          onClick={handleSubmit}
         >
           Send
         </button>
-      </form>
+      </div>
+      <p className="text-gray-600 mt-4">threadId: {threadId}</p>
     </div>
   );
 };

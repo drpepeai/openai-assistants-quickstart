@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "./warnings.module.css";
 import { assistantId } from "../assistant-config";
 
 const Warnings = () => {
@@ -21,9 +20,9 @@ const Warnings = () => {
   return (
     <>
       {!assistantId && (
-        <div className={styles.container}>
+        <div className={""}>
           <h1>Start by creating your assistant</h1>
-          <div className={styles.message}>
+          <div className={""}>
             Create an assistant and set its ID in{" "}
             <span>app/assistant-config.ts</span>
           </div>
@@ -31,12 +30,12 @@ const Warnings = () => {
             <button
               onClick={fetchAssistantId}
               disabled={loading}
-              className={styles.button}
+              className={""}
             >
               {loading ? "Loading..." : "Create Assistant"}
             </button>
           ) : (
-            <div className={styles.result}>{newAssistantId}</div>
+            <div className={""}>{newAssistantId}</div>
           )}
         </div>
       )}

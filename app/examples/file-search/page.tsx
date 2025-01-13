@@ -1,19 +1,18 @@
 "use client";
 import React from "react";
-import styles from "../shared/page.module.css";
 
 import Chat from "../../components/chat";
 import FileViewer from "../../components/file-viewer";
 
 const FileSearchPage = () => {
   return (
-    <main className={styles.main}>
-      <div className={styles.container}>
-        <div className={styles.column}>
+    <main className={""}>
+      <div className={""}>
+        <div className={""}>
           <FileViewer />
         </div>
-        <div className={styles.chatContainer}>
-          <div className={styles.chat}>
+        <div className={""}>
+          <div className={""}>
             <Chat />
           </div>
         </div>

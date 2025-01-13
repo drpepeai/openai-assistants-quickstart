@@ -7,6 +7,8 @@ export const runtime = "nodejs";
 export async function POST(request, { params: { threadId } }) {
   const { content } = await request.json();
 
+  console.log("SEND MESSAGE:", { threadId, content });
+
   await openai.beta.threads.messages.create(threadId, {
     role: "user",
     content: content,
@@ -15,6 +17,8 @@ export async function POST(request, { params: { threadId } }) {
   const stream = openai.beta.threads.runs.stream(threadId, {
     assistant_id: assistantId,
   });
+
+  console.log("STREAM:", stream);
 
   return new Response(stream.toReadableStream());
 }
