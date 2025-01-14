@@ -8,6 +8,7 @@ import { AssistantStreamEvent } from "openai/resources/beta/assistants/assistant
 import { RequiredActionFunctionToolCall } from "openai/resources/beta/threads/runs/runs";
 import { useAtom } from "jotai";
 import { activeThreadIdAtom, threadIdsAtom, threadsAtom } from "../utils/atoms/userInfo";
+import { fetchThreadMessages } from "../utils";
 
 type MessageProps = {
   role: "user" | "assistant" | "code";
@@ -194,12 +195,14 @@ export default function Chat({ functionCallHandler = () => Promise.resolve("") }
   const handleRunCompleted = () => {
     console.log("HANDLE RUN COMPLETED");
     setInputDisabled(false);
-    console.log("Threads1", threads);
-    console.log("Messages1", messages);
-    setThreads((prevThreads) => {
-      return { ...prevThreads, [activeThreadId]: { threadId: activeThreadId, messages: messages } };
+
+    fetchThreadMessages(activeThreadId).then(threadMessages => {
+      setThreads((prevThreads) => {
+        return { ...prevThreads, [activeThreadId]: { threadId: activeThreadId, messages: threadMessages.messages } };
+      });
+      console.log("Threads2", threads);
     });
-    console.log("Threads2", threads);
+
   };
 
   const handleReadableStream = (stream: AssistantStream) => {
