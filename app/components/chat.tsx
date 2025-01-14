@@ -97,7 +97,12 @@ export default function Chat({ thread, functionCallHandler = () => Promise.resol
       setThreadIds(newThreadIds);
       localStorage.setItem('threadIds', newThreadIds.join(','));
     };
-    if (!thread) createThread();
+    if (thread) {
+      setThreadId(thread.threadId);
+      setMessages(thread.messages);
+    } else {
+      createThread();
+    }
   }, [thread]);
 
   const sendMessage = async (text) => {

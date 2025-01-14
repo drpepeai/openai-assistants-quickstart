@@ -7,7 +7,33 @@ import { PrivyProvider, usePrivy } from "@privy-io/react-auth";
 import SideBarContainer from "./SideBarContainer";
 
 
-export default function PageContainer({ children }) {
+export default function Page({ children }) {
+  return (
+    <PrivyProvider
+      appId="cm5urnrtw0081n9ira2i2rx5z"
+      config={{
+        // Customize Privy's appearance in your app
+        appearance: {
+          theme: 'dark',
+          accentColor: '#676FFF',
+          logo: 'https://openai-assistants-quickstart-alpha-five.vercel.app/logo.png',
+          landingHeader: 'Hello im Bryan (Demo)',
+          loginMessage: 'Tell me how i can help you to live forever',
+        },
+        // Create embedded wallets for users who don't have a wallet
+        embeddedWallets: {
+          createOnLogin: 'users-without-wallets',
+        },
+      }}
+    >
+      <PageContainer>
+        {children}
+      </PageContainer>
+    </PrivyProvider>
+  );
+}
+
+function PageContainer({ children }) {
   const [userId, setUserId] = useAtom(userIdAtom);
   const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
   const [threads, setThreads] = useAtom(threadsAtom);
@@ -26,6 +52,7 @@ export default function PageContainer({ children }) {
 
   // Write userId to localStorage when user is logged in
   useEffect(() => {
+    console.log({ ready, authenticated, user });
     if (ready && authenticated && user) {
       localStorage.setItem('userId', user.id);
       setUserId(user.id);
@@ -78,7 +105,7 @@ export default function PageContainer({ children }) {
         threadId, messages: data.messages.data.map(message => {
           return {
             role: message.role,
-            content: message.content[0].text.value,
+            text: message.content[0].text.value,
           }
         }).reverse()
       }
@@ -87,39 +114,20 @@ export default function PageContainer({ children }) {
     }
   }
 
-
   return (
-    <PrivyProvider
-      appId="cm5urnrtw0081n9ira2i2rx5z"
-      config={{
-        // Customize Privy's appearance in your app
-        appearance: {
-          theme: 'dark',
-          accentColor: '#676FFF',
-          logo: 'https://openai-assistants-quickstart-alpha-five.vercel.app/logo.png',
-          landingHeader: 'Hello im Bryan (Demo)',
-          loginMessage: 'Tell me how i can help you to live forever',
-        },
-        // Create embedded wallets for users who don't have a wallet
-        embeddedWallets: {
-          createOnLogin: 'users-without-wallets',
-        },
-      }}
-    >
-      <div className="flex flex-row h-screen min-h-full">
-        <div className="w-2/12 min-h-full">
-          <SideBarContainer />
-        </div>
+    <div className="flex flex-row h-screen min-h-full">
+      <div className="w-2/12 min-h-full">
+        <SideBarContainer />
+      </div>
 
-        <main className="w-10/12 h-full flex flex-col justify-between overflow-y-auto">
-          <div className="px-4 sm:px-6 lg:px-8 pt-4">
-            {children}
-          </div>
-          <footer className="w-full flex flex-row justify-center items-center mt-24 pb-4">
-            <p className="text-white">BRYAN can hallucinate. BRYAN can make mistakes. Always verify.</p>
-          </footer>
-        </main>
-      </div >
-    </PrivyProvider>
+      <main className="w-10/12 h-full flex flex-col justify-between overflow-y-auto">
+        <div className="px-4 sm:px-6 lg:px-8 pt-4">
+          {children}
+        </div>
+        <footer className="w-full flex flex-row justify-center items-center mt-24 pb-4">
+          <p className="text-white">BRYAN can hallucinate. BRYAN can make mistakes. Always verify.</p>
+        </footer>
+      </main>
+    </div >
   );
 }
