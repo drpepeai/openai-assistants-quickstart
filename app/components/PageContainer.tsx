@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { threadIdsAtom, threadsAtom, userIdAtom } from "../utils/atoms/userInfo";
+import { activeThreadIdAtom, threadIdsAtom, threadsAtom, userIdAtom } from "../utils/atoms/userInfo";
 import { Provider, useAtom } from "jotai";
 import { PrivyProvider, usePrivy } from "@privy-io/react-auth";
 import SideBarContainer from "./SideBarContainer";
@@ -36,6 +36,7 @@ export default function Page({ children }) {
 function PageContainer({ children }) {
   const [userId, setUserId] = useAtom(userIdAtom);
   const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
+  const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
   const [threads, setThreads] = useAtom(threadsAtom);
   const { ready, authenticated, user } = usePrivy();
 
@@ -52,7 +53,6 @@ function PageContainer({ children }) {
 
   // Write userId to localStorage when user is logged in
   useEffect(() => {
-    console.log({ ready, authenticated, user });
     if (ready && authenticated && user) {
       localStorage.setItem('userId', user.id);
       setUserId(user.id);
@@ -60,37 +60,28 @@ function PageContainer({ children }) {
   }, [ready, authenticated, user]);
 
 
-  async function fetchAllThreads(storedThreadIds: string) {
+  async function fetchAllThreads(storedThreadIds: string): Promise<any> {
     const allThreadIds = storedThreadIds.split(',');
-
     const allThreads = await Promise.all(allThreadIds.map(async threadId => fetchThreadStatus(threadId)));
 
     const filteredThreads = allThreads.filter(thread => thread.messages.length > 0);
-    const filteredThreadIds = filteredThreads.map(thread => thread.threadId);
 
     const newThreads = {}
     filteredThreads.forEach(thread => {
       newThreads[thread.threadId] = thread;
     });
 
-    setThreadIds(filteredThreadIds);
-    setThreads(newThreads);
+    return newThreads;
   }
 
-  // Read threadIds from localStorage
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedThreadIds = localStorage.getItem('threadIds');
+  async function createThread(): Promise<string> {
+    const res = await fetch(`/api/assistants/threads`, {
+      method: "POST",
+    });
+    const data = await res.json();
 
-      if (storedThreadIds) {
-        fetchAllThreads(storedThreadIds);
-
-        // localStorage.setItem('threadIds', filteredThreadIds.join(','));
-
-      }
-    }
-  }, [userId]);
-
+    return data.threadId;
+  };
 
   async function fetchThreadStatus(threadId) {
     const response = await fetch(
@@ -113,6 +104,33 @@ function PageContainer({ children }) {
       return { threadId, messages: [] }
     }
   }
+
+  // Read threadIds from localStorage
+  useEffect(() => {
+    async function setUp() {
+      const storedThreadIds = localStorage.getItem('threadIds');
+
+      let newThreads = {};
+
+      if (storedThreadIds) {
+        newThreads = await fetchAllThreads(storedThreadIds);
+      }
+
+      const newThreadId = await createThread();
+      newThreads[newThreadId] = { threadId: newThreadId, messages: [] };
+
+      setThreads(newThreads);
+      setActiveThreadId(newThreadId);
+      setThreadIds([...Object.keys(newThreads)]);
+
+      localStorage.setItem('threadIds', [...Object.keys(newThreads)].join(','));
+    }
+
+    if (typeof window !== 'undefined') {
+      setUp();
+    }
+  }, [userId]);
+
 
   return (
     <div className="flex flex-row h-screen min-h-full">

@@ -7,7 +7,7 @@ import Markdown from "react-markdown";
 import { AssistantStreamEvent } from "openai/resources/beta/assistants/assistants";
 import { RequiredActionFunctionToolCall } from "openai/resources/beta/threads/runs/runs";
 import { useAtom } from "jotai";
-import { threadIdsAtom } from "../utils/atoms/userInfo";
+import { activeThreadIdAtom, threadIdsAtom, threadsAtom } from "../utils/atoms/userInfo";
 
 type MessageProps = {
   role: "user" | "assistant" | "code";
@@ -59,20 +59,19 @@ const Message = ({ role, text }: MessageProps) => {
 };
 
 type ChatProps = {
-  thread?: any;
   functionCallHandler?: (
     toolCall: RequiredActionFunctionToolCall
   ) => Promise<string>;
 };
 
-export default function Chat({ thread, functionCallHandler = () => Promise.resolve("") }: ChatProps) {
+export default function Chat({ functionCallHandler = () => Promise.resolve("") }: ChatProps) {
+  const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
+  const [threads, setThreads] = useAtom(threadsAtom);
   const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
-  const [threadId, setThreadId] = useState("");
   const [userInput, setUserInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [inputDisabled, setInputDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
-
 
   // automatically scroll to bottom of chat
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
@@ -85,30 +84,16 @@ export default function Chat({ thread, functionCallHandler = () => Promise.resol
 
   // create a new threadID when chat component created
   useEffect(() => {
-    const createThread = async () => {
-      const res = await fetch(`/api/assistants/threads`, {
-        method: "POST",
-      });
-      const data = await res.json();
-      setThreadId(data.threadId);
-
-      // update threadIds atom and localStorage
-      const newThreadIds = [...threadIds, data.threadId];
-      setThreadIds(newThreadIds);
-      localStorage.setItem('threadIds', newThreadIds.join(','));
-    };
-    if (thread) {
-      setThreadId(thread.threadId);
-      setMessages(thread.messages);
-    } else {
-      createThread();
+    if (activeThreadId) {
+      console.log("Active Thread ID USE EFFECT");
+      setMessages(threads[activeThreadId].messages);
     }
-  }, [thread]);
+  }, [activeThreadId]);
 
   const sendMessage = async (text) => {
     setLoading(true);
     const response = await fetch(
-      `/api/assistants/threads/${threadId}/messages`,
+      `/api/assistants/threads/${activeThreadId}/messages`,
       {
         method: "POST",
         body: JSON.stringify({
@@ -124,7 +109,7 @@ export default function Chat({ thread, functionCallHandler = () => Promise.resol
 
   const submitActionResult = async (runId, toolCallOutputs) => {
     const response = await fetch(
-      `/api/assistants/threads/${threadId}/actions`,
+      `/api/assistants/threads/${activeThreadId}/actions`,
       {
         method: "POST",
         headers: {
@@ -207,7 +192,14 @@ export default function Chat({ thread, functionCallHandler = () => Promise.resol
 
   // handleRunCompleted - re-enable the input form
   const handleRunCompleted = () => {
+    console.log("HANDLE RUN COMPLETED");
     setInputDisabled(false);
+    console.log("Threads1", threads);
+    console.log("Messages1", messages);
+    setThreads((prevThreads) => {
+      return { ...prevThreads, [activeThreadId]: { threadId: activeThreadId, messages: messages } };
+    });
+    console.log("Threads2", threads);
   };
 
   const handleReadableStream = (stream: AssistantStream) => {
@@ -236,7 +228,13 @@ export default function Chat({ thread, functionCallHandler = () => Promise.resol
     =======================
   */
 
+  const appendMessage = (role, text) => {
+    console.log("APPEND MESSAGE");
+    setMessages((prevMessages) => [...prevMessages, { role, text }]);
+  };
+
   const appendToLastMessage = (text) => {
+    console.log("APPEND TO LAST MESSAGE");
     setMessages((prevMessages) => {
       const lastMessage = prevMessages[prevMessages.length - 1];
       const updatedLastMessage = {
@@ -247,11 +245,8 @@ export default function Chat({ thread, functionCallHandler = () => Promise.resol
     });
   };
 
-  const appendMessage = (role, text) => {
-    setMessages((prevMessages) => [...prevMessages, { role, text }]);
-  };
-
   const annotateLastMessage = (annotations) => {
+    console.log("ANNOTATE LAST MESSAGE");
     setMessages((prevMessages) => {
       const lastMessage = prevMessages[prevMessages.length - 1];
       const updatedLastMessage = {
