@@ -1,6 +1,19 @@
-import { assistantId } from "./assistant-config";
-import Warnings from "./components/warnings";
+import { Provider } from "jotai";
+import PageContainer from "./components/PageContainer";
+import { Courier_Prime, Roboto } from 'next/font/google';
 import "./globals.css";
+
+const roboto = Roboto({
+  weight: ['400', '700'],  // specify the weights you need
+  subsets: ['latin'],   // specify the character sets
+  variable: '--font-roboto' // specify the variable name
+});
+
+const courierPrime = Courier_Prime({
+  weight: ['400', '700'],  // specify the weights you need
+  subsets: ['latin'],   // specify the character sets
+  variable: '--font-courier-prime' // specify the variable name
+});
 
 export const metadata = {
   title: "Assistants API Quickstart",
@@ -12,20 +25,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-full bg-black">
-      <body className={"h-full"}>
-        <div className="flex flex-row h-full">
-          <div className="w-1/12 bg-gray-900 h-full px-4">
-            <span className="flex flex-row items-center mt-4">
-              <img src="/logo.png" alt="logo" className="w-10 h-10" />
-              <p className="text-white ml-2">Dr Pepe.ai</p>
-            </span>
-          </div>
-
-          <main className="w-11/12 h-full">
-            <div className="px-4 sm:px-6 lg:px-8">{assistantId ? children : <Warnings />}</div>
-          </main>
-        </div >
+    <html lang="en" className={`h-full bg-black ${roboto.className} ${courierPrime.className}`}>
+      <body className={"h-full font-courierPrime"}>
+        <Provider>
+          <PageContainer>
+            {children}
+          </PageContainer>
+        </Provider>
       </body>
     </html >
   );

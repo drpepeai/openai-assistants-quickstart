@@ -6,6 +6,8 @@ import Markdown from "react-markdown";
 // @ts-expect-error - no types for this yet
 import { AssistantStreamEvent } from "openai/resources/beta/assistants/assistants";
 import { RequiredActionFunctionToolCall } from "openai/resources/beta/threads/runs/runs";
+import { useAtom } from "jotai";
+import { threadIdsAtom } from "../utils/atoms/userInfo";
 
 type MessageProps = {
   role: "user" | "assistant" | "code";
@@ -23,8 +25,8 @@ const UserMessage = ({ text }: { text: string }) => {
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-10/12">
-      <div className="p-4 bg-gray-600 rounded-md">
-      <Markdown>{text}</Markdown>
+      <div className="p-4 bg-zinc-600 rounded-md">
+        <Markdown>{text}</Markdown>
       </div>
     </div>
   );
@@ -57,19 +59,21 @@ const Message = ({ role, text }: MessageProps) => {
 };
 
 type ChatProps = {
+  thread?: any;
   functionCallHandler?: (
     toolCall: RequiredActionFunctionToolCall
   ) => Promise<string>;
 };
 
-const Chat = ({
-  functionCallHandler = () => Promise.resolve(""), // default to return empty string
-}: ChatProps) => {
+export default function Chat({ thread, functionCallHandler = () => Promise.resolve("") }: ChatProps) {
+  const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
+  const [threadId, setThreadId] = useState("");
   const [userInput, setUserInput] = useState("");
   const [messages, setMessages] = useState([]);
   const [inputDisabled, setInputDisabled] = useState(false);
-  const [threadId, setThreadId] = useState("");
   const [loading, setLoading] = useState(false);
+
+
   // automatically scroll to bottom of chat
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const scrollToBottom = () => {
@@ -87,9 +91,14 @@ const Chat = ({
       });
       const data = await res.json();
       setThreadId(data.threadId);
+
+      // update threadIds atom and localStorage
+      const newThreadIds = [...threadIds, data.threadId];
+      setThreadIds(newThreadIds);
+      localStorage.setItem('threadIds', newThreadIds.join(','));
     };
-    createThread();
-  }, []);
+    if (!thread) createThread();
+  }, [thread]);
 
   const sendMessage = async (text) => {
     setLoading(true);
@@ -253,41 +262,103 @@ const Chat = ({
       })
       return [...prevMessages.slice(0, -1), updatedLastMessage];
     });
-
   }
 
+  return messages.length === 0 ?
+    <InitialChat
+      messages={messages}
+      loading={loading}
+      messagesEndRef={messagesEndRef}
+      userInput={userInput}
+      setUserInput={setUserInput}
+      inputDisabled={inputDisabled}
+      handleSubmit={handleSubmit}
+    /> :
+    <ChatInterface
+      messages={messages}
+      loading={loading}
+      messagesEndRef={messagesEndRef}
+      userInput={userInput}
+      setUserInput={setUserInput}
+      inputDisabled={inputDisabled}
+      handleSubmit={handleSubmit}
+    />
+};
+
+
+interface ChatInterfaceProps {
+  messages: any[];
+  loading: boolean;
+  messagesEndRef: any;
+  userInput: string;
+  setUserInput: (input: string) => void;
+  inputDisabled: boolean;
+  handleSubmit: (e: any) => void;
+}
+
+function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className={"w-full h-full justify-center items-center bg-gray-900 p-4"}>
+    <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+      <img src="/banner-no-bg.png" alt="banner" className="mx-auto w-1/2 h-1/2" />
+      <div className="text-center">
+        <h1 className="text-balance text-3xl font-semibold tracking-tight text-white mt-4">
+          Hello im Bryan (Demo)
+        </h1>
+        <p className="mt-2 text-pretty text-2xl font-medium text-zinc-500">
+          Tell me how i can help you to live forever
+        </p>
+        <div className="mt-10 flex items-center justify-center">
+          <ChatInterface
+            messages={messages}
+            loading={loading}
+            messagesEndRef={messagesEndRef}
+            userInput={userInput}
+            setUserInput={setUserInput}
+            inputDisabled={inputDisabled}
+            handleSubmit={handleSubmit}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
+  return (
+    <div className={"w-full h-full justify-center items-center"}>
       <div className={"w-full text-white space-y-4"}>
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role} text={msg.text} />
         ))}
         <div ref={messagesEndRef} />
-        {loading && <div className="text-white">Loading...</div>}
+        {loading &&
+          <div className="w-32">
+            <div className="p-4 bg-zinc-600 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
+              <p className="">Thinking...</p>
+            </div>
+          </div>
+        }
       </div>
-      <div className={"w-full mt-4"}>
+      <div className={"w-full mt-4 flex flex-row justify-center items-center"}>
         <input
           id="question"
           name="question"
           type="text"
           placeholder="Enter your question"
           aria-label="question"
-          className="w-6/12 px-4 py-2 bg-gray-900 text-white focus:outline-none border-b border-white"
+          className="w-full px-4 py-2 bg-zinc-900 text-white focus:outline-none placeholder:text-zinc-500"
           value={userInput}
           onChange={(e) => setUserInput(e.target.value)}
         />
         <button
           type="button"
-          className="ml-4 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed"
+          className="ml-4 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-500 hover:bg-zinc-500 disabled:bg-zinc-50 disabled:text-zinc-400 disabled:cursor-not-allowed"
           disabled={inputDisabled}
           onClick={handleSubmit}
         >
           Send
         </button>
       </div>
-      <p className="text-gray-600 mt-4">threadId: {threadId}</p>
     </div>
-  );
-};
-
-export default Chat;
+  )
+}

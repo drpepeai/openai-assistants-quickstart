@@ -65,10 +65,10 @@ function Chat() {
               ? 'bg-blue-50 ml-8'
               : message.role === 'system'
                 ? 'bg-red-50'
-                : 'bg-gray-50 mr-8'
+                : 'bg-zinc-50 mr-8'
               }`}
           >
-            <p className="text-sm font-medium mb-2 text-gray-600">
+            <p className="text-sm font-medium mb-2 text-zinc-600">
               {message.role === 'user' ? '👤 You' :
                 message.role === 'system' ? '⚠️ System' : '🤖 Assistant'}
             </p>
@@ -110,9 +110,9 @@ function Chat() {
         {loading && (
           <div className="flex items-center justify-center p-4">
             <div className="animate-pulse flex space-x-2">
-              <div className="h-2 w-2 bg-gray-500 rounded-full"></div>
-              <div className="h-2 w-2 bg-gray-500 rounded-full"></div>
-              <div className="h-2 w-2 bg-gray-500 rounded-full"></div>
+              <div className="h-2 w-2 bg-zinc-500 rounded-full"></div>
+              <div className="h-2 w-2 bg-zinc-500 rounded-full"></div>
+              <div className="h-2 w-2 bg-zinc-500 rounded-full"></div>
             </div>
           </div>
         )}

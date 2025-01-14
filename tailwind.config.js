@@ -10,7 +10,15 @@ module.exports = {
     "./app/components/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'pulse-text': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
+      fontFamily: {
+        roboto: ['var(--font-roboto)'],
+        courierPrime: ['var(--font-courier-prime)'],
+      },
+    },
   },
   plugins: [],
 }

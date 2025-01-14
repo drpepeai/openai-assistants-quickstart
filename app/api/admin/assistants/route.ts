@@ -6,6 +6,5 @@ export async function GET() {
     order: "desc",
     limit: 20,
   });
-  console.log({ assistants })
   return Response.json(assistants.data);
 }
