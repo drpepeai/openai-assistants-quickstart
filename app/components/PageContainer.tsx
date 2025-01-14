@@ -94,9 +94,11 @@ export default function PageContainer({ children }) {
       config={{
         // Customize Privy's appearance in your app
         appearance: {
-          theme: 'light',
+          theme: 'dark',
           accentColor: '#676FFF',
-          logo: 'https://your-logo-url',
+          logo: 'https://openai-assistants-quickstart-alpha-five.vercel.app/logo.png',
+          landingHeader: 'Hello im Bryan (Demo)',
+          loginMessage: 'Tell me how i can help you to live forever',
         },
         // Create embedded wallets for users who don't have a wallet
         embeddedWallets: {
