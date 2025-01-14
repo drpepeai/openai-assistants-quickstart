@@ -15,8 +15,12 @@ export default function LoginButton() {
   }
 
   return userId ? <></> : (
-    <button disabled={disableLogin} onClick={handleLogin} className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-      Log in
+    <button
+      disabled={disableLogin}
+      onClick={handleLogin}
+      className="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-500 hover:bg-zinc-500 disabled:bg-zinc-50 disabled:text-zinc-400 disabled:cursor-not-allowed"
+    >
+      Enter
     </button>
   );
 }
