@@ -8,7 +8,8 @@ import SideBarContainer from "./SideBarContainer";
 import { createThread } from "../utils";
 import { fetchAllThreads } from "../utils";
 import PopUpModal from "./PopUpModal";
-
+import { toSolanaWalletConnectors } from '@privy-io/react-auth/solana';
+const solanaConnectors = toSolanaWalletConnectors();
 
 export default function Page({ children }) {
   return (
@@ -22,11 +23,11 @@ export default function Page({ children }) {
           logo: 'https://openai-assistants-quickstart-alpha-five.vercel.app/logo.png',
           landingHeader: 'Hello im Bryan (Demo)',
           loginMessage: 'Tell me how i can help you to live forever',
+          walletChainType: 'solana-only'
         },
-        // Create embedded wallets for users who don't have a wallet
-        embeddedWallets: {
-          createOnLogin: 'users-without-wallets',
-        },
+        externalWallets: {
+          solana: { connectors: solanaConnectors }
+        }
       }}
     >
       <PageContainer>
