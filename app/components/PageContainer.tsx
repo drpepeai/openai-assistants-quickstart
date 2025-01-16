@@ -23,7 +23,6 @@ export default function Page({ children }) {
           logo: 'https://openai-assistants-quickstart-alpha-five.vercel.app/logo.png',
           landingHeader: 'Hello im Bryan (Demo)',
           loginMessage: 'Tell me how i can help you to live forever',
-          walletChainType: 'solana-only'
         },
         externalWallets: {
           solana: { connectors: solanaConnectors }
