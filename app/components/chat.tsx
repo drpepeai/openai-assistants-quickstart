@@ -26,7 +26,7 @@ const UserMessage = ({ text }: { text: string }) => {
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-10/12">
-      <div className="p-4 bg-zinc-600 rounded-md">
+      <div className="p-4 bg-zinc-800 rounded-md space-y-4">
         <Markdown>{text}</Markdown>
       </div>
     </div>
@@ -97,6 +97,11 @@ export default function Chat({ functionCallHandler = () => Promise.resolve("") }
       `/api/assistants/threads/${activeThreadId}/messages`,
       {
         method: "POST",
+        headers: {
+          'Connection': 'keep-alive',
+          'Cache-Control': 'no-cache',
+          'Transfer-Encoding': 'chunked'
+        },
         body: JSON.stringify({
           content: text,
         }),
