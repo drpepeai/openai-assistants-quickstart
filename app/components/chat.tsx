@@ -310,10 +310,10 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
       <img src="/banner-no-bg.png" alt="banner" className="mx-auto w-1/2 h-1/2" />
       <div className="text-center">
         <h1 className="text-balance text-3xl font-semibold tracking-tight text-white mt-4">
-          Hello im Bryan (Demo)
+          Hello I am DrPepe.ai (Demo)
         </h1>
         <p className="mt-2 text-pretty text-2xl font-medium text-zinc-500">
-          Tell me how i can help you to live forever
+          Tell me how I can help you live forever
         </p>
         <div className="mt-10 flex items-center justify-center">
           <ChatInterface
