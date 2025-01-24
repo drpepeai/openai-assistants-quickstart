@@ -29,8 +29,11 @@ export default function SideBarContainer({ mobile }: { mobile: boolean }) {
       }
       <div className="flex flex-col mb-4">
         {threadIds.map((threadId) => (
+
           <div key={threadId} onClick={() => setActiveThreadId(threadId)} className="cursor-pointer">
-            <p className={`${activeThreadId === threadId ? "text-white" : "text-zinc-500"} mt-4`}>{threads[threadId].messages.length > 0 ? threads[threadId].messages[0].text : "Current Thread"}</p>
+            <p className={`${activeThreadId === threadId ? "text-white" : "text-zinc-500"} mt-4`}>
+              {threads[threadId].messages.length > 0 ? `${threads[threadId].messages[0].text.split(" ").length > 7 ? threads[threadId].messages[0].text.split(" ").slice(0, 7).join(" ") + "..." : threads[threadId].messages[0].text}` : "Current Thread"}
+            </p>
           </div>
         ))
         }
