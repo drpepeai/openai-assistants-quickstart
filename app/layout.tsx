@@ -28,9 +28,9 @@ export default function RootLayout({ children }) {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="DrPepe.ai Agent" />
         <meta property="og:description" content="DrPepe is an AI-Powered SMART Agent" />
-        <meta property="og:image" content="" />
+        <meta property="og:image" content="/banner.jpg" />
 
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="/banner.jpg" />
         <meta property="twitter:domain" content="drpepe.ai" />
         <meta property="twitter:url" content="https://drpepe.ai" />
         <meta name="twitter:title" content="DrPepe.ai Agent" />
