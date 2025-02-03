@@ -30,12 +30,12 @@ export default function RootLayout({ children }) {
         <meta property="og:description" content="DrPepe is an AI-Powered SMART Agent" />
         <meta property="og:image" content="/banner.jpg" />
 
-        <meta name="twitter:card" content="/banner.jpg" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="drpepe.ai" />
         <meta property="twitter:url" content="https://drpepe.ai" />
         <meta name="twitter:title" content="DrPepe.ai Agent" />
         <meta name="twitter:description" content="DrPepe is an AI-Powered SMART Agent" />
-        <meta name="twitter:image" content="/favicon.ico" />
+        <meta name="twitter:image" content="/banner.jpg" />
       </Head>
       <body className={"h-full font-courierPrime"}>
         <Provider>
