@@ -5,17 +5,45 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import OpenAI from "openai";
+
+async function doStuff() {
+  const openai = new OpenAI({
+    apiKey: "xai-XgF0TwybbKq0kk03uvJXr4EYLvmaJt4STPJ4QDZxBo5wLvo37r8eL6CQoOf2h44MvH4KckPo436hK1aU",
+    baseURL: "https://api.x.ai/v1",
+    dangerouslyAllowBrowser: true,
+  });
+
+  const completion = await openai.chat.completions.create({
+    model: "grok-2-latest",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are Grok, a chatbot inspired by the Hitchhiker's Guide to the Galaxy.",
+      },
+      {
+        role: "user",
+        content:
+          "What is the meaning of life, the universe, and everything?",
+      },
+    ],
+  });
+
+  console.log(completion.choices[0].message.content);
+}
 
 export default function Admin() {
 
   return (
     <div>
-      <button onClick={() => {
-        fetch("/api/admin/assistants")
-          .then(res => res.json())
-          .then(data => console.log(data))
-      }}>Get Assistants</button>
-      <Chat />
+      <button
+        onClick={() => doStuff()}
+        className="text-white"
+      >
+        Do stuff
+      </button>
+      {/* <Chat /> */}
     </div>)
 }
 

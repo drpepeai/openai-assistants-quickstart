@@ -15,8 +15,15 @@ export async function POST(request, { params: { threadId } }) {
   const stream = openai.beta.threads.runs.stream(threadId, {
     assistant_id: assistantId,
   });
-
-  return new Response(stream.toReadableStream());
+  
+  return new Response(stream.toReadableStream(), {
+    headers: new Headers({
+      'Content-Type': 'text/event-stream',
+      'Connection': 'keep-alive',
+      'Cache-Control': 'no-cache',
+      'Transfer-Encoding': 'chunked'
+    })
+  });
 }
 
 export async function GET(request, { params: { threadId } }) {

@@ -20,19 +20,22 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`h-full bg-black ${roboto.className} ${courierPrime.className}`}>
       <Head>
-        <title>DrPepe.AI</title>
-        <meta
-          name="description"
-          content="DrPepe is an AI-Powered SMART Agent"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" type={"image/ico"} href="https://freight.cargo.site/t/original/i/C2119357503935211640175775296145/drpepe-logo-favicon.ico" />
+        <title>DrPepe.ai Agent</title>
+        <meta name="description" content="DrPepe is an AI-Powered SMART Agent" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+
+        <meta property="og:url" content="https://drpepe.ai" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="DrPepe.ai Agent" />
+        <meta property="og:description" content="DrPepe is an AI-Powered SMART Agent" />
+        <meta property="og:image" content="" />
 
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="DrPepe.AI" />
-
+        <meta property="twitter:domain" content="drpepe.ai" />
+        <meta property="twitter:url" content="https://drpepe.ai" />
+        <meta name="twitter:title" content="DrPepe.ai Agent" />
         <meta name="twitter:description" content="DrPepe is an AI-Powered SMART Agent" />
-        <meta name="twitter:image" content="https://freight.cargo.site/w/1000/i/H2165108033493999422276823788177/screenshot-3987544959.jpg" />
+        <meta name="twitter:image" content="/favicon.ico" />
       </Head>
       <body className={"h-full font-courierPrime"}>
         <Provider>
