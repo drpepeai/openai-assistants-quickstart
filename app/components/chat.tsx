@@ -344,7 +344,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
   )}
 
   {/* Scrollable Responses */}
-  <div className="flex-1 overflow-y-auto space-y-4">
+  <div className="flex-1 space-y-4">
     {messages.slice(1).map((msg, index) => (
       <Message key={index} role={msg.role} text={msg.text} />
     ))}
