@@ -20,7 +20,7 @@ export default function SideBarContainer({ mobile }: { mobile: boolean }) {
   }
 
   return (
-    <div className="w-full h-full bg-zinc-800/33 px-4">
+    <div className="w-full h-vh text-[#D1D1D1] bg-[#212121]  px-4">
   
       <div className="flex flex-col mb-4">
         {threadIds.map((threadId) => (
@@ -36,7 +36,7 @@ export default function SideBarContainer({ mobile }: { mobile: boolean }) {
       {userId &&
         <div className="border-t border-zinc-500">
           <button
-            className="mt-4 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-500 hover:bg-zinc-500 disabled:bg-zinc-50 disabled:text-zinc-400 disabled:cursor-not-allowed"
+            className="mt-4 rounded-m px-3.5 py-2.5 text-sm  text-[#D1D1D1] bg-[#212121]  shadow-sm ring-1 ring-inset ring-zinc-500 hover:bg-zinc-500 disabled:bg-zinc-50 disabled:text-zinc-400 disabled:cursor-not-allowed font-primary"
             onClick={handleLogout}>
             Logout
           </button>

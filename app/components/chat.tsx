@@ -332,7 +332,7 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[75vh]" : "justify-center h-full font-cascadia"}`}>
+    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[75vh]" : "justify-center h-full font-primary"}`}>
 
 {/* Chat Messages Container */}
 <div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4 p-4 font-primary">
@@ -371,7 +371,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
             name="question"
             placeholder="Enter your question..."
             aria-label="question"
-            className="w-full h-28 resize-none px-4 pr-14 py-3 bg-zinc-900 text-[#d1d1d1] rounded-[15px] focus:outline-none placeholder:text-zinc-500 border border-zinc-700 font-cascadia"
+            className="w-full h-28 resize-none px-4 pr-14 py-3 bg-zinc-900 text-[#d1d1d1] rounded-md  mt-3 focus:outline-none placeholder:text-zinc-500 border border-zinc-700 font-primary"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
           />
