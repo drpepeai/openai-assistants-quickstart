@@ -1,4 +1,4 @@
-<div><br class="Apple-interchange-newline">"use client";
+"use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { AssistantStream } from "openai/lib/AssistantStream";
