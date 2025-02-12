@@ -335,7 +335,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
     <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[75vh]" : "justify-center h-full font-primary"}`}>
 
 {/* Chat Messages Container */}
-<div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4 p-4 font-primary">
+<div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4  font-primary">
   
   {/* Render Messages in Order */}
   {messages.map((msg, index) => (

@@ -151,7 +151,7 @@ function PageContainer({ children }) {
     {[...Array(64)].map((_, index) => (
       <div
         key={index}
-        className="grid-item border border-white/10 bg-transparent transition-transform duration-500 ease-out"
+        className="grid-item border border-white/10 bg-[#212121] transition-transform duration-500 ease-out"
       />
     ))}
   </div>
