@@ -333,38 +333,44 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
     <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[80vh]" : "justify-center h-full font-cascadia"}`}>
-        {/* Chat Messages Container */}
-<div className="w-full flex flex-col max-h-[70vh] p-4 font-cascadia border border-blue-500">
+{/* Chat Messages Container */}
+<div className="w-full flex flex-col max-h-[70vh] p-4 font-cascadia">
   
-
-  {messages.filter(msg => msg.role === "user").map((msg, index) => (
-    <div key={`user-${index}`} className="w-full pb-2">
-      <Message role={msg.role} text={msg.text} />
-    </div>
-  ))}
-
- 
-  <div
-    className="flex-1 overflow-y-hidden hover:overflow-y-auto space-y-4"
-    style={{ scrollbarGutter: "stable" }} // Prevents scrollbar shift
-  >
-    {messages.filter(msg => msg.role !== "user").map((msg, index) => (
-      <Message key={`assistant-${index}`} role={msg.role} text={msg.text} />
+  {/* Latest User Message (Always at the Top) */}
+  {messages
+    .filter(msg => msg.role === "user")
+    .slice(-1) // Get only the last user message
+    .map((msg, index) => (
+      <div key={`user-${index}`} className="w-full pb-2">
+        <Message role={msg.role} text={msg.text} />
+      </div>
     ))}
 
+  {/* Scrollable Assistant Responses (Only Scrolls on User Input) */}
+  <div
+    className="flex-1 overflow-y-hidden hover:overflow-y-auto space-y-4"
+    style={{ scrollbarGutter: "stable" }} // Prevents layout shift when scrollbar appears
+  >
+    {messages
+      .filter(msg => msg.role === "assistant")
+      .map((msg, index) => (
+        <Message key={`assistant-${index}`} role={msg.role} text={msg.text} />
+      ))}
 
+    {/* Keeps the first line of the assistant response always visible */}
     <div ref={messagesEndRef} />
-
-
-    {loading && (
-      <div className="w-32">
-        <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
-          <p className="text-[#d1d1d1] font-cascadia">Thinking...</p>
-        </div>
-      </div>
-    )}
   </div>
+
+  {/* Loading Indicator */}
+  {loading && (
+    <div className="w-32">
+      <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
+        <p className="text-[#d1d1d1] font-cascadia">Thinking...</p>
+      </div>
+    </div>
+  )}
 </div>
+
 
 
 
