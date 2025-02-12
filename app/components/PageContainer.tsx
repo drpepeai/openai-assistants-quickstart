@@ -157,7 +157,7 @@ function PageContainer({ children }) {
   </div>
 
   {/* Sidebar */}
-  <div className="hidden lg:block w-2/12 h-full relative z-10">
+  <div className="hidden lg:block w-2/12 h-vh relative z-10">
     <SideBarContainer mobile={false} />
   </div>
 
@@ -167,7 +167,7 @@ function PageContainer({ children }) {
     <div className="w-full flex flex-row justify-between items-center px-4 sm:px-6 lg:px-8 pt-4">
       {/* First Image */}
       <span className="flex flex-row items-center">
-        <Image src={titlelogo} alt="logo" className="h-6 w-auto object-contain" />
+        <Image onClick={() => window.open('https://www.drpepe.ai/')} src={titlelogo} alt="logo" className="h-6 w-auto object-contain cursor-crosshair" />
       </span>
 
       {/* Second Image (Clickable) */}
