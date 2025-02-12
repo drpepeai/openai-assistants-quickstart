@@ -1,4 +1,5 @@
 # OpenAI Assistants API Quickstart
+# 
 
 A quick-start template using the OpenAI [Assistants API](https://platform.openai.com/docs/assistants/overview) with [Next.js](https://nextjs.org/docs).
 <br/>
