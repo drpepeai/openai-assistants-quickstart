@@ -18,7 +18,7 @@ type MessageProps = {
 const UserMessage = ({ text }: { text: string }) => {
   return (
     <div className="flex flex-row justify-end">
-      <p className="text-[#D1D1D1] bg-[#212121] p-3 pl-4 pr-4 rounded-[26px] text-sm ">{text}</p>
+      <p className="text-[#D1D1D1] bg-[#212121] p-3 pl-4 pr-4 rounded-[26px] text-sm font-primary ">{text}</p>
       </div>
   );
 };
@@ -26,7 +26,7 @@ const UserMessage = ({ text }: { text: string }) => {
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-10/12">
-      <div className="p-4 text-[#D1D1D1] bg-[#212121] text-sm rounded-md space-y-4">
+      <div className="p-4 text-[#D1D1D1] bg-[#212121] text-sm rounded-md space-y-4 font-primary">
         <Markdown>{text}</Markdown>
       </div>
     </div>
@@ -335,7 +335,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
     <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[75vh]" : "justify-center h-full font-cascadia"}`}>
 
 {/* Chat Messages Container */}
-<div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4 p-4 font-cascadia">
+<div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4 p-4 font-primary">
   
   {/* Render Messages in Order */}
   {messages.map((msg, index) => (
@@ -349,7 +349,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
   {loading && (
     <div className="w-32">
       <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
-        <p className="text-[#d1d1d1] font-cascadia">Thinking...</p>
+        <p className="text-[#d1d1d1] font-primary">Thinking...</p>
       </div>
     </div>
   )}
