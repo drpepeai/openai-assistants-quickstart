@@ -379,7 +379,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
           {/* Send Button */}
           <button
             type="button"
-            className="w-10 h-10 absolute top-2 right-2 pb-[7px] bg-[#6CC9FE] text-[#1d1d1d] text-3xl flex items-center justify-center rounded-[12px] shadow-md transition-all hover:bg-[#5BB8F0] disabled:bg-zinc-600 disabled:cursor-not-allowed leading-[0]"
+            className="w-10 h-10 absolute top-[1.3rem] right-2 pb-[7px] bg-[#6CC9FE] text-[#1d1d1d] text-3xl flex items-center justify-center rounded-[12px] shadow-md transition-all hover:bg-[#5BB8F0] disabled:bg-zinc-600 disabled:cursor-not-allowed leading-[0]"
             disabled={inputDisabled}
             onClick={handleSubmit}
           >
