@@ -334,25 +334,25 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
   return (
     <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[80vh]" : "justify-center h-full font-cascadia"}`}>
 {/* Chat Messages Container */}
-<div className="w-full flex flex-col overflow-hidden max-h-[70vh] p-4 font-cascadia">
+<div className="w-full flex flex-col max-h-[70vh] p-4 font-cascadia border border-blue-500">
   
-  {/* Fixed First Message (User Prompt) */}
+
   {messages.length > 0 && (
-    <div className="w-full pb-4  sticky top-0  z-10">
+    <div className="w-full pb-4">
       <Message key="first-message" role={messages[0].role} text={messages[0].text} />
     </div>
   )}
 
-  {/* Scrollable Responses */}
-  <div className="flex-1 space-y-4">
+
+  <div className="flex-1 overflow-y-auto space-y-4">
     {messages.slice(1).map((msg, index) => (
       <Message key={index} role={msg.role} text={msg.text} />
     ))}
 
-    {/* Keeps the first message visible while scrolling responses */}
+
     <div ref={messagesEndRef} />
 
-    {/* Loading Indicator */}
+  
     {loading && (
       <div className="w-32">
         <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
@@ -362,6 +362,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
     )}
   </div>
 </div>
+
 
 
 
