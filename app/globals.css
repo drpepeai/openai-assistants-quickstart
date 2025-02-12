@@ -1,3 +1,9 @@
+@import url('https://fonts.cdnfonts.com/css/cascadia-code');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.font-cascadia {
+  font-family: 'Cascadia Code', monospace;
+}
