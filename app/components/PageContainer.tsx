@@ -127,7 +127,7 @@ function PageContainer({ children }) {
           {children}
         </div>
 
-        <footer className="w-full flex flex-row justify-center items-center mt-24 pb-4 px-4 sm:px-6 lg:px-8">
+        <footer className="w-full flex flex-row justify-center items-center pb-4 px-4 sm:px-6 lg:px-8">
           <p className="text-white">DrPepe.ai can hallucinate. DrPepe.ai can make mistakes. Always verify.</p>
         </footer>
 
