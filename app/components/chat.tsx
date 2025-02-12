@@ -26,7 +26,7 @@ const UserMessage = ({ text }: { text: string }) => {
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-10/12">
-      <div className="p-4 bg-zinc-800 rounded-md space-y-4">
+      <div className="p-4 text-[#D1D1D1] rounded-md space-y-4">
         <Markdown>{text}</Markdown>
       </div>
     </div>
@@ -332,7 +332,7 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[70vh]" : "justify-center h-full"}`}>
+    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[80vh]" : "justify-center h-full"}`}>
         {/* Chat Messages */}
         <div className="w-full flex-1 overflow-y-auto space-y-4 p-4">
         {messages.map((msg, index) => (
@@ -350,14 +350,14 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
 
 
 {/* Input Box */}
-<div className="w-full p-4 bg-zinc-900 border-t border-zinc-700">
+        <div className="w-full p-4 ">
         <div className="relative">
           <textarea
             id="question"
             name="question"
             placeholder="Enter your question..."
             aria-label="question"
-            className="w-full h-16 resize-none px-4 pr-14 py-3 bg-zinc-900 text-[#d1d1d1] rounded-[15px] focus:outline-none placeholder:text-zinc-500 border border-zinc-700"
+            className="w-full h-28 resize-none px-4 pr-14 py-3 bg-zinc-900 text-[#d1d1d1] rounded-[15px] focus:outline-none placeholder:text-zinc-500 border border-zinc-700"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
           />
