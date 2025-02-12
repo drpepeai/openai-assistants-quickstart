@@ -334,11 +334,11 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
   return (
     <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[80vh]" : "justify-center h-full font-cascadia"}`}>
 {/* Chat Messages Container */}
-<div className="w-full flex flex-col overflow-hidden max-h-[70vh] p-4 font-cascadia border border-blue-500">
+<div className="w-full flex flex-col overflow-hidden max-h-[70vh] p-4 font-cascadia">
   
   {/* Fixed First Message (User Prompt) */}
   {messages.length > 0 && (
-    <div className="w-full pb-4 border-b border-gray-600 sticky top-0 bg-zinc-900 z-10">
+    <div className="w-full pb-4  sticky top-0  z-10">
       <Message key="first-message" role={messages[0].role} text={messages[0].text} />
     </div>
   )}
