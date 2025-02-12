@@ -18,7 +18,7 @@ type MessageProps = {
 const UserMessage = ({ text }: { text: string }) => {
   return (
     <div className="flex flex-row justify-end">
-      <p className="text-white bg-[#1E1E1E]  p-3 pl-4 pr-4 rounded-[26px] text-sm tracking-[0.2rem]">{text}</p>
+      <p className="text-[#D1D1D1] bg-[#212121] p-3 pl-4 pr-4 rounded-[26px] text-sm ">{text}</p>
       </div>
   );
 };
@@ -26,7 +26,7 @@ const UserMessage = ({ text }: { text: string }) => {
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-10/12">
-      <div className="p-4 text-[#D1D1D1] text-sm rounded-md space-y-4 tracking-[0.2rem]">
+      <div className="p-4 text-[#D1D1D1] bg-[#212121] text-sm rounded-md space-y-4">
         <Markdown>{text}</Markdown>
       </div>
     </div>
