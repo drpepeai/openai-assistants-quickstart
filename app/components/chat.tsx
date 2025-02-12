@@ -333,25 +333,37 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
     <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[80vh]" : "justify-center h-full font-cascadia"}`}>
-{/* Chat Messages */}
-<div className="w-full flex flex-col-reverse overflow-y-auto max-h-[60vh] space-y-4 p-4 font-cascadia">
-  {/* Messages (reverse order) */}
-  {messages.map((msg, index) => (
-    <Message key={index} role={msg.role} text={msg.text} />
-  ))}
-
-  {/* Keeps the first message (user's prompt) at the top */}
-  <div ref={messagesEndRef} />
-
-  {/* Loading Indicator */}
-  {loading && (
-    <div className="w-32">
-      <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
-        <p className="text-[#d1d1d1] font-cascadia">Thinking...</p>
-      </div>
+{/* Chat Messages Container */}
+<div className="w-full flex flex-col overflow-hidden max-h-[70vh] p-4 font-cascadia border border-blue-500">
+  
+  {/* Fixed First Message (User Prompt) */}
+  {messages.length > 0 && (
+    <div className="w-full pb-4 border-b border-gray-600 sticky top-0 bg-zinc-900 z-10">
+      <Message key="first-message" role={messages[0].role} text={messages[0].text} />
     </div>
   )}
+
+  {/* Scrollable Responses */}
+  <div className="flex-1 overflow-y-auto space-y-4">
+    {messages.slice(1).map((msg, index) => (
+      <Message key={index} role={msg.role} text={msg.text} />
+    ))}
+
+    {/* Keeps the first message visible while scrolling responses */}
+    <div ref={messagesEndRef} />
+
+    {/* Loading Indicator */}
+    {loading && (
+      <div className="w-32">
+        <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
+          <p className="text-[#d1d1d1] font-cascadia">Thinking...</p>
+        </div>
+      </div>
+    )}
+  </div>
 </div>
+
+
 
 
 
