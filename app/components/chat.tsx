@@ -333,20 +333,26 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
     <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[80vh]" : "justify-center h-full font-cascadia"}`}>
-        {/* Chat Messages */}
-        <div className="w-full flex-1 overflow-y-auto space-y-4 p-4 font-cascadia">
-        {messages.map((msg, index) => (
-          <Message key={index} role={msg.role} text={msg.text} />
-        ))}
-        <div ref={messagesEndRef} />
-        {loading &&(
-          <div className="w-32">
-              <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
-              <p className="text-[#d1d1d1] font-cascadia">Thinking...</p>
-            </div>
-          </div>
-        )}
+{/* Chat Messages */}
+<div className="w-full flex flex-col-reverse overflow-y-auto max-h-[60vh] space-y-4 p-4 font-cascadia">
+  {/* Messages (reverse order) */}
+  {messages.map((msg, index) => (
+    <Message key={index} role={msg.role} text={msg.text} />
+  ))}
+
+  {/* Keeps the first message (user's prompt) at the top */}
+  <div ref={messagesEndRef} />
+
+  {/* Loading Indicator */}
+  {loading && (
+    <div className="w-32">
+      <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
+        <p className="text-[#d1d1d1] font-cascadia">Thinking...</p>
       </div>
+    </div>
+  )}
+</div>
+
 
 
 {/* Input Box */}
