@@ -18,8 +18,8 @@ type MessageProps = {
 const UserMessage = ({ text }: { text: string }) => {
   return (
     <div className="flex flex-row justify-end">
-      <p className="text-white bg-blue-600 p-4 rounded-md">{text}</p>
-    </div>
+      <p className="text-white bg-[#1E1E1E]  p-3 pl-4 pr-4 rounded-[26px] text-base">{text}</p>
+      </div>
   );
 };
 
@@ -306,12 +306,12 @@ interface ChatInterfaceProps {
 
 function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+    <div className="mx-auto max-w-[670px]">
       <div className="text-center">
-        <h1 className="text-balance text-3xl font-semibold tracking-tight text-white mt-4">
-          Hello I am DrPepe.ai (Demo)
+        <h1 className="text-balance text-5xl font-regular tracking-tight text-[#d1d1d1] mt-4 font-cascadia">
+          Hello I'm DrPepe.ai
         </h1>
-        <p className="mt-2 text-pretty text-2xl font-medium text-zinc-500">
+        <p className="mt-2 text-pretty text-xl font-medium text-[#d1d1d1] font-cascadia">
           Tell me how I can help you live forever
         </p>
         <div className="mt-10 flex items-center justify-center">
@@ -332,40 +332,50 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className={"w-full h-full justify-center items-center"}>
-      <div className={"w-full text-white space-y-4"}>
+    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[70vh]" : "justify-center h-full"}`}>
+        {/* Chat Messages */}
+        <div className="w-full flex-1 overflow-y-auto space-y-4 p-4">
         {messages.map((msg, index) => (
           <Message key={index} role={msg.role} text={msg.text} />
         ))}
         <div ref={messagesEndRef} />
-        {loading &&
+        {loading &&(
           <div className="w-32">
-            <div className="p-4 bg-zinc-600 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
-              <p className="">Thinking...</p>
+              <div className="p-4 rounded-md flex flex-row justify-center items-center space-x-2 animate-pulse-text">
+              <p className="text-[#d1d1d1]">Thinking...</p>
             </div>
           </div>
-        }
+        )}
       </div>
-      <div className={"w-full mt-4 flex flex-row justify-center items-center"}>
-        <input
-          id="question"
-          name="question"
-          type="text"
-          placeholder="Enter your question"
-          aria-label="question"
-          className="w-full px-4 py-2 bg-zinc-900 text-white focus:outline-none placeholder:text-zinc-500"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-        />
-        <button
-          type="button"
-          className="ml-4 rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-500 hover:bg-zinc-500 disabled:bg-zinc-50 disabled:text-zinc-400 disabled:cursor-not-allowed"
-          disabled={inputDisabled}
-          onClick={handleSubmit}
-        >
-          Send
-        </button>
+
+
+{/* Input Box */}
+<div className="w-full p-4 bg-zinc-900 border-t border-zinc-700">
+        <div className="relative">
+          <textarea
+            id="question"
+            name="question"
+            placeholder="Enter your question..."
+            aria-label="question"
+            className="w-full h-16 resize-none px-4 pr-14 py-3 bg-zinc-900 text-[#d1d1d1] rounded-[15px] focus:outline-none placeholder:text-zinc-500 border border-zinc-700"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+          />
+          
+          {/* Send Button */}
+          <button
+            type="button"
+            className="w-10 h-10 absolute top-2 right-2 pb-[7px] bg-[#6CC9FE] text-[#1d1d1d] text-3xl flex items-center justify-center rounded-[12px] shadow-md transition-all hover:bg-[#5BB8F0] disabled:bg-zinc-600 disabled:cursor-not-allowed leading-[0]"
+            disabled={inputDisabled}
+            onClick={handleSubmit}
+          >
+            ↑
+          </button>
+        </div>
       </div>
+
+
+
     </div>
   )
 }
