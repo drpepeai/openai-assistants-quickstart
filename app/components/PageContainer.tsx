@@ -141,7 +141,7 @@ function PageContainer({ children }) {
   return (
 
 
-<div className="relative flex flex-row h-screen min-h-full min-h-[100dvh] min-h-[100vh] min-h-[100%] overflow-hidden">
+<div className="relative flex flex-row h-screen min-h-full min-h-[100dvh] min-h-[100vh] min-h-[100%] overflow-hidden border border-color-blue">
 
   {/* Elastic Grid Background */}
   <div
@@ -157,7 +157,7 @@ function PageContainer({ children }) {
   </div>
 
   {/* Sidebar */}
-  <div className="hidden lg:block w-2/12 min-h-full relative z-10">
+  <div className="hidden lg:block w-2/12 h-full relative z-10">
     <SideBarContainer mobile={false} />
   </div>
 
