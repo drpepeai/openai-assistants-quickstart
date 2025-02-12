@@ -162,7 +162,7 @@ function PageContainer({ children }) {
   </div>
 
   {/* Main Content */}
-  <main className="w-full lg:w-10/12 h-full flex flex-col justify-between overflow-y-auto relative z-10">
+  <main className="w-full lg:w-full h-full flex flex-col justify-between overflow-y-auto relative z-10">
     {/* Header */}
     <div className="w-full flex flex-row justify-between items-center px-4 sm:px-6 lg:px-8 pt-4">
       {/* First Image */}
