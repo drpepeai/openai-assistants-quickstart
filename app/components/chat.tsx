@@ -369,5 +369,6 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
       </div>
     </div>
   )
-}</div>
+}
+
 
