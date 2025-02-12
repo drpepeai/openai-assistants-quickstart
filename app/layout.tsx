@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
         <title>DrPepe.ai Agent</title>
         <meta name="description" content="DrPepe is an AI-Powered SMART Agent" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/cascadia-code" />
 
         <meta property="og:url" content="https://drpepe.ai" />
         <meta property="og:type" content="website" />
@@ -37,7 +38,7 @@ export default function RootLayout({ children }) {
         <meta name="twitter:description" content="DrPepe is an AI-Powered SMART Agent" />
         <meta name="twitter:image" content="/banner.jpg" />
       </Head>
-      <body className={"h-full font-courierPrime"}>
+      <body className={"h-full font-cascadia"}>
         <Provider>
           <PageContainer>
             {children}
