@@ -182,7 +182,7 @@ function PageContainer({ children }) {
     {/* Footer */}
     <footer className="w-full flex flex-row justify-center items-center pb-4 px-4 sm:px-6 lg:px-8">
       <p className="text-[#D1D1D1] text-center text-xs">
-        DrPepe.ai can hallucinate. DrPepe.ai can make mistakes. Always verify.
+        DrPepe.ai can hallucinate, always verify.
       </p>
     </footer>
 
