@@ -332,7 +332,7 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[80vh]" : "justify-center h-full font-cascadia"}`}>
+    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end" : "justify-center h-full font-cascadia"}`}>
 
 {/* Chat Messages Container */}
 <div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4 p-4 font-cascadia">

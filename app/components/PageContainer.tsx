@@ -141,7 +141,7 @@ function PageContainer({ children }) {
   return (
 
 
-<div className="relative flex flex-row min-h-full h-dvh h-vh h-full overflow-y-hidden ">
+<div className="relative flex flex-row min-h-full h-dvh  overflow-y-hidden ">
 
   {/* Elastic Grid Background */}
   <div
