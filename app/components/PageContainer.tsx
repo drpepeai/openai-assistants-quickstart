@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { activeThreadIdAtom, threadIdsAtom, threadsAtom, userIdAtom } from "../utils/atoms/userInfo";
 import { Provider, useAtom } from "jotai";
 import { PrivyProvider, usePrivy } from "@privy-io/react-auth";
@@ -9,6 +10,7 @@ import { createThread } from "../utils";
 import { fetchAllThreads } from "../utils";
 import PopUpModal from "./PopUpModal";
 import { toSolanaWalletConnectors } from '@privy-io/react-auth/solana';
+import titlelogo from "../../public/title-logo.svg";
 const solanaConnectors = toSolanaWalletConnectors();
 
 export default function Page({ children }) {
@@ -99,8 +101,7 @@ function PageContainer({ children }) {
       <main className="w-full lg:w-10/12 h-full flex flex-col justify-between overflow-y-auto">
         <div className="lg:hidden w-full flex flex-row justify-between">
           <span className="flex flex-row items-center px-4 sm:px-6 lg:px-8 pt-4">
-            <img src="/logo.png" alt="logo" className="w-10 h-10" />
-            <p className="text-white ml-2">Dr Pepe.ai</p>
+            <Image src={titlelogo} alt="logo" className="w-100 " />
           </span>
           <button
             className="text-customGray500 fixed top-3 right-0 bg-customNeutral100 z-50 rounded-full flex justify-center items-center w-12 h-12"
@@ -128,7 +129,7 @@ function PageContainer({ children }) {
         </div>
 
         <footer className="w-full flex flex-row justify-center items-center pb-4 px-4 sm:px-6 lg:px-8">
-          <p className="text-white">DrPepe.ai can hallucinate. DrPepe.ai can make mistakes. Always verify.</p>
+          <p className="text-[#D1D1D1] text-center text-xs">DrPepe.ai can hallucinate. DrPepe.ai can make mistakes. Always verify.</p>
         </footer>
 
         <div className="fixed z-100 left-0 md:hidden">
