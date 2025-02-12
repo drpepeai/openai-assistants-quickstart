@@ -308,13 +308,13 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
   return (
     <div className="mx-auto max-w-[670px]">
       <div className="text-center">
-        <h1 className="text-balance text-5xl font-regular tracking-tight text-[#d1d1d1] mt-4 font-cascadia">
+        <h1 className="text-balance text-2xl font-regular tracking-tight text-[#d1d1d1] mt-4 font-cascadia">
           Hello I'm DrPepe.ai
         </h1>
         <p className="mt-2 text-pretty text-xl font-medium text-[#d1d1d1] font-cascadia">
           Tell me how I can help you live forever
         </p>
-        <div className="mt-10 flex items-center justify-center">
+        <div className="flex items-center justify-center">
           <ChatInterface
             messages={messages}
             loading={loading}
