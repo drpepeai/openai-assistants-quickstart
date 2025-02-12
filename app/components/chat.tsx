@@ -307,7 +307,6 @@ interface ChatInterfaceProps {
 function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
     <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-      <img src="/banner-no-bg.png" alt="banner" className="mx-auto w-1/2 h-1/2" />
       <div className="text-center">
         <h1 className="text-balance text-3xl font-semibold tracking-tight text-white mt-4">
           Hello I am DrPepe.ai (Demo)
