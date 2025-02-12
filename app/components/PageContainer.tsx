@@ -11,6 +11,7 @@ import { fetchAllThreads } from "../utils";
 import PopUpModal from "./PopUpModal";
 import { toSolanaWalletConnectors } from '@privy-io/react-auth/solana';
 import titlelogo from "../../public/title-logo.svg";
+import wiredlogo from "../../public/wiredlogo.svg";
 const solanaConnectors = toSolanaWalletConnectors();
 
 export default function Page({ children }) {
@@ -99,31 +100,19 @@ function PageContainer({ children }) {
       </div>
 
       <main className="w-full lg:w-10/12 h-full flex flex-col justify-between overflow-y-auto">
-        <div className="lg:hidden w-full flex flex-row justify-between">
-          <span className="flex flex-row items-center px-4 sm:px-6 lg:px-8 pt-4">
-            <Image src={titlelogo} alt="logo" className="w-100 " />
-          </span>
-          <button
-            className="text-customGray500 fixed top-3 right-0 bg-customNeutral100 z-50 rounded-full flex justify-center items-center w-12 h-12"
-            onClick={() => setShow(true)}
-          >
-            <div className="block w-10 bg-transparent">
-              <span
-                aria-hidden="true"
-                className={`block h-0.5 w-8 bg-white transform transition duration-500 ease-in-out rounded-3xl ${show ? "rotate-45 translate-y-0.5" : "-translate-y-2"}`}
-              ></span>
-              <span
-                aria-hidden="true"
-                className={`block h-0.5 w-8 bg-white transform transition duration-500 ease-in-out rounded-3xl ${show ? "opacity-0" : "opacity-100"}`}
-              ></span>
-              <span
-                aria-hidden="true"
-                className={`block h-0.5 w-8 bg-white transform transition duration-500 ease-in-out rounded-3xl ${show ? "-rotate-45 -translate-y-0.5" : "translate-y-2"}`}
-              ></span>
-            </div>
-          </button>
 
+        <div className="w-full flex flex-row justify-between items-center px-4 sm:px-6 lg:px-8 pt-4">
+          {/* First Image */}
+          <span className="flex flex-row items-center">
+            <Image src={titlelogo} alt="logo" className="h-6 w-auto object-contain" />
+          </span>
+
+          {/* Second Image (Clickable) */}
+          <div className="h-12 w-auto cursor-pointer" onClick={() => setShow(true)}>
+            <Image src={wiredlogo} alt="logo" className="h-12 w-auto object-contain" />
+          </div>
         </div>
+
         <div className="px-4 sm:px-6 lg:px-8 pt-4">
           {children}
         </div>

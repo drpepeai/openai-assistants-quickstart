@@ -4,8 +4,6 @@ import { useAtom } from "jotai";
 import { userIdAtom, threadIdsAtom, threadsAtom, activeThreadIdAtom } from "../utils/atoms/userInfo";
 import { usePrivy } from "@privy-io/react-auth";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
-import titlelogo from "../../public/title-logo.svg";
 
 export default function SideBarContainer({ mobile }: { mobile: boolean }) {
   const [userId, setUserId] = useAtom(userIdAtom);
@@ -23,11 +21,7 @@ export default function SideBarContainer({ mobile }: { mobile: boolean }) {
 
   return (
     <div className="w-full h-full bg-zinc-800 px-4">
-      {!mobile &&
-        <span className="flex flex-row items-center pt-4">
-            <Image src={titlelogo} alt="logo" className="w-100 " />
-        </span>
-      }
+  
       <div className="flex flex-col mb-4">
         {threadIds.map((threadId) => (
 
