@@ -335,40 +335,15 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
     <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[80vh]" : "justify-center h-full font-cascadia"}`}>
 
 {/* Chat Messages Container */}
-<div className="w-full flex flex-col max-h-[70vh] p-4 font-cascadia border border-blue-500">
+<div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4 p-4 font-cascadia">
   
-  {/* Latest User Message (Pinned at the Top) */}
-  {messages
-    .filter(msg => msg.role === "user")
-    .slice(-1) // Keep only the last user message at the top
-    .map((msg, index) => (
-      <div key={`user-latest-${index}`} className="w-full pb-2 border-b border-gray-600">
-        <Message role={msg.role} text={msg.text} />
-      </div>
-    ))}
+  {/* Render Messages in Order */}
+  {messages.map((msg, index) => (
+    <Message key={index} role={msg.role} text={msg.text} />
+  ))}
 
-  {/* Scrollable Container for Older User Messages + Assistant Responses */}
-  <div className="flex-1 overflow-y-hidden hover:overflow-y-auto space-y-4" style={{ scrollbarGutter: "stable" }}>
-    
-    {/* Older User Messages (Before the Latest One) */}
-    {messages
-      .filter(msg => msg.role === "user")
-      .slice(0, -1) // Show all user messages except the last one (already pinned above)
-      .map((msg, index) => (
-        <div key={`user-${index}`} className="w-full">
-          <Message role={msg.role} text={msg.text} />
-        </div>
-      ))}
-
-    {/* Assistant Responses */}
-    {messages
-      .filter(msg => msg.role === "assistant")
-      .map((msg, index) => (
-        <Message key={`assistant-${index}`} role={msg.role} text={msg.text} />
-      ))}
-
-    <div ref={messagesEndRef} />
-  </div>
+  {/* Scroll Reference for New Messages */}
+  <div ref={messagesEndRef} />
 
   {/* Loading Indicator */}
   {loading && (
@@ -379,6 +354,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
     </div>
   )}
 </div>
+
 
 
 
