@@ -36,7 +36,7 @@ export default function SideBarContainer({ mobile }: { mobile: boolean }) {
       {userId &&
         <div className="border-t border-zinc-500">
           <button
-            className="mt-4 rounded-m px-3.5 py-2.5 text-sm  text-[#D1D1D1] bg-[#212121]  shadow-sm ring-1 ring-inset ring-zinc-500 hover:bg-zinc-500 disabled:bg-zinc-50 disabled:text-zinc-400 disabled:cursor-not-allowed font-primary"
+            className="w-24 h-10  right-2 pb-[2px] border-[#d1d1d1] text-[#d1d1d1] text-xl flex items-center justify-center rounded-[12px] shadow-md transition-all hover:border-[#5BB8F0] disabled:border-zinc-600 disabled:cursor-not-allowed leading-[0] font-primary"
             onClick={handleLogout}>
             Logout
           </button>

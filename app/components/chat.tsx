@@ -18,7 +18,7 @@ type MessageProps = {
 const UserMessage = ({ text }: { text: string }) => {
   return (
     <div className="flex flex-row justify-end">
-      <p className="text-[#D1D1D1] bg-zinc-900; p-3 pl-4 pr-4 rounded-[26px] text-sm font-primary ">{text}</p>
+      <p className="text-[#D1D1D1] bg-[#2e2e2e] p-3 pl-4 pr-4 rounded-[26px] text-sm font-primary ">{text}</p>
       </div>
   );
 };
@@ -332,10 +332,10 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[75vh]" : "justify-center h-full font-primary"}`}>
+    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[75vh]" : "justify-center h-full  font-primary"}`}>
 
 {/* Chat Messages Container */}
-<div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4  font-primary">
+<div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4    font-primary">
   
   {/* Render Messages in Order */}
   {messages.map((msg, index) => (
