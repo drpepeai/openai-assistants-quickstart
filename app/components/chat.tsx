@@ -306,7 +306,7 @@ interface ChatInterfaceProps {
 
 function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className="mx-auto max-w-[670px]">
+    <div className="mx-auto max-w-[768px]">
       <div className="text-center">
         <h1 className="text-balance text-2xl font-regular tracking-tight text-[#d1d1d1] mt-4 font-cascadia">
           Hello I'm DrPepe.ai
@@ -332,7 +332,7 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className={`w-full max-w-[670px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[75vh]" : "justify-center h-full  font-primary"}`}>
+    <div className={`w-full max-w-[768px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[85vh]" : "justify-center h-full  font-primary"}`}>
 
       {/* Chat Messages Container */}
       <div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4    font-primary">

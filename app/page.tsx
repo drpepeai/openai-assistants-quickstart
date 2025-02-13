@@ -11,7 +11,7 @@ export default function Home() {
 
   return (
     <div className={""}>
-      {userId ?
+
         <Chat /> :
         <div className="mx-auto max-w-2xl  ">
           <div className="text-center">
@@ -26,7 +26,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      }
+   
     </div>
   );
 };

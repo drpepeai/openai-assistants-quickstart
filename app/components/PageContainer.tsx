@@ -116,14 +116,18 @@ function PageContainer({ children }) {
         </div>
 
         {/* Page Content */}
-        <div className="px-4 sm:px-6 lg:px-8 pt-4">{children}</div>
-
+        <div className="px-4 sm:px-6 border lg:px-8 pt-4">
+          {children}
+          
+          </div>
         {/* Footer */}
+
         <footer className="w-full flex flex-row justify-center items-center pb-4 px-4 sm:px-6 lg:px-8">
           <p className="text-[#D1D1D1] text-center text-xs font-primary">
             DrPepe.ai can hallucinate, always verify.
           </p>
         </footer>
+
 
         {/* Mobile Sidebar */}
         {userId && (
