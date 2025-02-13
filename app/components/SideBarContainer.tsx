@@ -31,14 +31,14 @@ export default function SideBarContainer({ mobile }) {
       {/* Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed top-4 left-4 z-50 p-2 bg-gray-800 text-white rounded-lg"
+        className="fixed bottom-[18px] left-[1.8rem] z-50 p-2 bg-gray-800 text-white rounded-lg"
       >
         {isOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
       </button>
 
       {/* Sidebar */}
       {isOpen && (
-        <div className="w-64 h-full fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-4 text-sm font-primary flex flex-col justify-around transition-transform duration-300">
+        <div className="w-64 h-full pt-[7rem]  fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] text-sm font-primary flex flex-col justify-start transition-transform duration-300">
           <div className="flex flex-col-reverse mb-4">
             {threadIds.map((threadId) => (
               <div
