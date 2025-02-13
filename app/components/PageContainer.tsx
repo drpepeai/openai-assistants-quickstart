@@ -49,7 +49,6 @@ function PageContainer({ children }) {
   const [threads, setThreads] = useAtom(threadsAtom);
   const { ready, authenticated, user } = usePrivy();
   const [show, setShow] = useState(false);
-  const gridRef = useRef<HTMLDivElement>(null); // Next.js-safe reference
 
 
   // Read userId from localStorage
@@ -97,45 +96,7 @@ function PageContainer({ children }) {
     }
   }, [userId]);
 
-   // Grid
-   useEffect(() => {
-    if (!gridRef.current) return;
 
-    const gridItems = gridRef.current.querySelectorAll(".grid-item");
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-
-      gridItems.forEach((item) => {
-        const rect = item.getBoundingClientRect();
-        const distanceX = clientX - (rect.left + rect.width / 2);
-        const distanceY = clientY - (rect.top + rect.height / 2);
-        const distance = Math.hypot(distanceX, distanceY);
-
-        const maxDistance = 200;
-        const intensity = 1 - Math.min(distance / maxDistance, 1);
-
-        const translateX = -intensity * (distanceX / distance) * 20;
-        const translateY = -intensity * (distanceY / distance) * 20;
-
-        (item as HTMLElement).style.transform = `translate(${translateX}px, ${translateY}px)`;
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gridItems.forEach((item) => {
-        (item as HTMLElement).style.transform = "translate(0, 0)";
-      });
-    };
-
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, []);
 
 
   return (
@@ -143,18 +104,7 @@ function PageContainer({ children }) {
 
 <div className="relative flex flex-row min-h-full h-dvh  overflow-y-hidden ">
 
-  {/* Elastic Grid Background */}
-  <div
-    ref={gridRef}
-    className="absolute top-0 left-0 w-full h-full grid grid-cols-8 gap-px z-0 pointer-events-none"
-  >
-    {[...Array(64)].map((_, index) => (
-      <div
-        key={index}
-        className="grid-item border border-[#212121] bg-[#212121] transition-transform duration-500 ease-out"
-      />
-    ))}
-  </div>
+
 
   {/* Sidebar */}
   <div className="hidden lg:block w-2/12 h-vh relative z-10">

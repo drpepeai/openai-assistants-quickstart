@@ -20,13 +20,13 @@ export default function SideBarContainer({ mobile }: { mobile: boolean }) {
   }
 
   return (
-    <div className="w-full h-vh text-[#D1D1D1] bg-[#212121]  px-4">
+    <div className="w-full h-vh text-[#D1D1D1] bg-[#212121]  px-4 font-primary">
   
       <div className="flex flex-col mb-4">
         {threadIds.map((threadId) => (
 
-          <div key={threadId} onClick={() => setActiveThreadId(threadId)} className="cursor-pointer">
-            <p className={`${activeThreadId === threadId ? "text-white" : "text-zinc-500"} mt-4`}>
+          <div key={threadId} onClick={() => setActiveThreadId(threadId)} className="cursor-pointer font-primary">
+            <p className={`${activeThreadId === threadId ? "text-[#D1D1D1]" : "text-zinc-500"} mt-4 font-primary`}>
               {threads[threadId].messages.length > 0 ? `${threads[threadId].messages[0].text.split(" ").length > 7 ? threads[threadId].messages[0].text.split(" ").slice(0, 7).join(" ") + "..." : threads[threadId].messages[0].text}` : "Current Thread"}
             </p>
           </div>
