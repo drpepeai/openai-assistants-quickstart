@@ -87,7 +87,7 @@ function PageContainer({ children }) {
   }, [userId]);
 
   return (
-    <div className="relative flex flex-row min-h-full h-dvh overflow-y-hidden border">
+    <div className="relative flex flex-row min-h-full h-dvh overflow-y-hidden">
       {/* Sidebar */}
       {userId && (
         <div className="hidden lg:block w-2/12 h-vh relative z-10">
