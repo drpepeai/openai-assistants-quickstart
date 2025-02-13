@@ -50,9 +50,9 @@ export default function PopUpModal({
               <Dialog.Panel
                 className={`relative transform overflow-hidden transition-all w-full ${classNames}`}
               >
-                <div className=" w-full h-full pb-8 px-2 pt-5">
+                <div className=" bg-[#181818] w-full h-full pb-8 px-2 pt-5">
                   <span className="flex flex-row px-4 justify-between">
-                    <p className="text-[#d1d1d1] text-xl font-semibold">
+                    <p className="text-[#d1d1d1] text-14">
                       Threads
                     </p>
                     <XMarkIcon
