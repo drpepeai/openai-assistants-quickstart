@@ -116,7 +116,7 @@ function PageContainer({ children }) {
         </div>
 
         {/* Page Content */}
-        <div className="px-4 sm:px-6 border lg:px-8 pt-4">
+        <div className="px-4 sm:px-6  lg:px-8 pt-4">
           {children}
           
           </div>
