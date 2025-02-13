@@ -26,7 +26,7 @@ const UserMessage = ({ text }: { text: string }) => {
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-full">
-      <div className="p-4 text-[#D1D1D1] bg-zinc-900; text-sm rounded-md space-y-4 font-primary">
+      <div className="p-4 text-[#D1D1D1] bg-zinc-900; text-sm rounded-md space-y-4 font-primary proses ">
         <Markdown>{text}</Markdown>
       </div>
     </div>
