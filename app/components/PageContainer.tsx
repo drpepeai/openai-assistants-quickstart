@@ -87,7 +87,7 @@ function PageContainer({ children }) {
   }, [userId]);
 
   return (
-    <div className="relative flex flex-row min-h-full h-dvh overflow-y-hidden">
+    <div className="relative flex flex-row min-h-full h-dvh overflow-y-hidden bg-[#212121]">
       {/* Sidebar */}
       {userId && (
         <div className="hidden lg:block w-2/12 h-vh relative z-10">
@@ -120,7 +120,7 @@ function PageContainer({ children }) {
 
         {/* Footer */}
         <footer className="w-full flex flex-row justify-center items-center pb-4 px-4 sm:px-6 lg:px-8">
-          <p className="text-[#D1D1D1] text-center text-xs">
+          <p className="text-[#D1D1D1] text-center text-xs font-primary">
             DrPepe.ai can hallucinate, always verify.
           </p>
         </footer>

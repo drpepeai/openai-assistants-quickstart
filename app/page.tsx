@@ -11,11 +11,11 @@ export default function Home() {
 
   return (
     <div className={""}>
-      {userId ?
+
         <Chat /> :
-        <div className="mx-auto max-w-2xl ">
+        <div className="mx-auto max-w-2xl  ">
           <div className="text-center">
-            <div className="text-4xl text-[#D1D1D1] mt-4">
+            <div className="text-4xl text-[#D1D1D1] mt-4 ">
               Hello I am DrPepe.ai 
             </div>
             <div className="mt-2 text-pretty text-md text-[#D1D1D1]">
@@ -26,7 +26,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      }
+
     </div>
   );
 };

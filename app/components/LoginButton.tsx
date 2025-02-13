@@ -14,12 +14,15 @@ export default function LoginButton() {
   }
 
   return userId ? <></> : (
-    <button
-      disabled={!ready}
-      onClick={handleLogin}
-      className="rounded-md bg-transparent  px-3.5 py-2.5 text-sm  text-md text-[#D1D1D1] shadow-sm ring-1 ring-inset ring-[#D1D1D1]  hover:bg-[#5BB8F0] disabled:bg-zinc-50 disabled:text-zinc-400 disabled:cursor-not-allowed font-cascadia"
-    >
-      ENTER
-    </button>
+<button
+  disabled={!ready}
+  onClick={handleLogin}
+  className="w-24 h-10  right-2 pb-[2px] bg-[#6CC9FE] text-[#303030] text-xl flex items-center justify-center rounded-[12px] shadow-md transition-all hover:bg-[#5BB8F0] disabled:bg-zinc-600 disabled:cursor-not-allowed leading-[0] font-primary"
+
+>
+
+
+Enter
+</button>
   );
 }

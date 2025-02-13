@@ -371,7 +371,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
             name="question"
             placeholder="Enter your question..."
             aria-label="question"
-            className="w-full h-28 resize-none px-4 pr-14 py-3 bg-zinc-900 text-[#d1d1d1] rounded-md  mt-3 focus:outline-none placeholder:text-zinc-500 border border-zinc-700 font-primary"
+            className="w-full h-28 resize-none px-4 pr-14 py-3 bg-[#303030] text-[#d1d1d1] rounded-[12px]  mt-3 focus:outline-none placeholder:text-zinc-500 border border-zinc-700 font-primary"
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
           />
@@ -379,7 +379,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
           {/* Send Button */}
           <button
             type="button"
-            className="w-10 h-10 absolute top-[1.3rem] right-2 pb-[7px] bg-[#6CC9FE] text-[#1d1d1d] text-3xl flex items-center justify-center rounded-[12px] shadow-md transition-all hover:bg-[#5BB8F0] disabled:bg-zinc-600 disabled:cursor-not-allowed leading-[0]"
+            className="w-8 h-8 absolute top-[1.3rem] right-2 pb-[2px] bg-[#6CC9FE] text-[#303030] text-xl flex items-center justify-center rounded-[12px] shadow-md transition-all hover:bg-[#5BB8F0] disabled:bg-zinc-600 disabled:cursor-not-allowed leading-[0]"
             disabled={inputDisabled}
             onClick={handleSubmit}
           >
