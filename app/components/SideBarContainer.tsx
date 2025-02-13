@@ -20,7 +20,7 @@ export default function SideBarContainer({ mobile }: { mobile: boolean }) {
   }
 
   return (
-    <div className="w-full h-vh text-[#D1D1D1] bg-[#212121]  px-4 font-primary">
+    <div className="w-full h-full flex flex-col justify-around text-[#D1D1D1] bg-[#212121] px-4 text-sm font-primary">
   
       <div className="flex flex-col mb-4">
         {threadIds.map((threadId) => (
