@@ -18,7 +18,7 @@ type MessageProps = {
 const UserMessage = ({ text }: { text: string }) => {
   return (
     <div className="flex flex-row justify-end">
-      <p className="text-[#D1D1D1] bg-[#2e2e2e] p-3 pl-4 pr-4 rounded-[26px] text-sm font-primary ">{text}</p>
+      <p className="text-[#D1D1D1] bg-[#2e2e2e] p-3 pl-4 pr-4 rounded-[26px] text-sm font-primary proses ">{text}</p>
       </div>
   );
 };
