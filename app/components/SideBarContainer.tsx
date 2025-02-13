@@ -57,7 +57,7 @@ export default function SideBarContainer({ mobile }) {
                       .slice(0, 7)
                       .join(" ") + "..."
                   : threads[threadId].messages[0].text
-                : "Current Thread"}
+                : "New Chat"}
             </p>
           </div>
         ))}
@@ -66,7 +66,7 @@ export default function SideBarContainer({ mobile }) {
       {userId && (
         <div className="border-t border-zinc-500">
           <div
-            className="w-24 h-10 text-[#d1d1d1] text-[14px] font-primary"
+            className="w-24 h-10 mt-[1rem] text-[#d1d1d1] text-[14px] font-primary"
             onClick={handleLogout}
           >
             Logout

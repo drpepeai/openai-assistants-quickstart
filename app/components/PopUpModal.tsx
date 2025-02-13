@@ -52,9 +52,7 @@ export default function PopUpModal({
               >
                 <div className=" bg-[#181818] w-full h-full pb-8 px-2 pt-5">
                   <span className="flex flex-row px-4 justify-between">
-                    <p className="text-[#d1d1d1] text-14">
-                      Threads
-                    </p>
+                 
                     <XMarkIcon
                       className="w-6 h-6 text-[#d1d1d1] justify-self-end"
                       onClick={onClosePopUpModal}
