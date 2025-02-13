@@ -8,7 +8,7 @@ import {
   activeThreadIdAtom,
 } from "../utils/atoms/userInfo";
 import { usePrivy } from "@privy-io/react-auth";
-import { XMarkIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { XMarkIcon, Bars3Icon, ArrowRightCircleIcon} from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 export default function SideBarContainer({ mobile }) {
@@ -29,17 +29,28 @@ export default function SideBarContainer({ mobile }) {
   return (
     <div className="relative">
       {/* Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-[18px] left-[1.8rem] z-50 p-2 bg-gray-800 text-white rounded-lg"
-      >
-        {isOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
-      </button>
+      <div className="fixed bottom-[18px] left-[1.8rem] z-50 flex flex-col gap-2">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2 bg-gray-800 text-white rounded-lg"
+        >
+          {isOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+        </button>
+        {userId && (
+          <button
+            onClick={handleLogout}
+            className="p-2 bg-red-600 text-white rounded-lg flex items-center gap-2"
+          >
+            <ArrowRightCircleIcon className="h-5 w-5" /> 
+          </button>
+        )}
+      </div>
 
       {/* Sidebar */}
       {isOpen && (
-        <div className="w-64 h-full pt-[7rem]  fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] text-sm font-primary flex flex-col justify-start transition-transform duration-300">
-          <div className="flex flex-col-reverse mb-4">
+        <div className="w-64 h-full pt-[7rem] fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] text-sm font-primary flex flex-col justify-start transition-transform duration-300">
+          <div className="flex h-[30rem] overflow-scroll flex-col mb-4">
+            <div className="text-[#5BB8F0] text[14px] font-primary">Threads</div>
             {threadIds.map((threadId) => (
               <div
                 key={threadId}
@@ -59,18 +70,7 @@ export default function SideBarContainer({ mobile }) {
                 </p>
               </div>
             ))}
-            <div className="text-[#5BB8F0] text[14px] font-primary">Threads</div>
           </div>
-          {userId && (
-            <div className="border-t border-zinc-500">
-              <div
-                className="w-24 h-10 mt-[1rem] text-[#d1d1d1] text-[14px] font-primary cursor-pointer"
-                onClick={handleLogout}
-              >
-                Logout
-              </div>
-            </div>
-          )}
         </div>
       )}
     </div>
