@@ -29,16 +29,18 @@ const AssistantMessage = ({ text }: { text: string }) => {
       <div className="p-4 text-[#D1D1D1] bg-zinc-900; text-sm rounded-md space-y-4 font-primary proses ">
       <ReactMarkdown
           components={{
-            p: ({ children }) => <p className="mb-[6rem] text-justify">{children}</p>, // Justify text
-            ul: ({ children }) => <ul className="list-disc ml-6 mb-4">{children}</ul>, // Bullet points
-            ol: ({ children }) => <ol className="list-decimal ml-6 mb-4">{children}</ol>, // Numbered lists
+            p: ({ children }) => <p className="mb-4 text-justify">{children}</p>, // Balanced paragraph spacing
+            ul: ({ children }) => <ul className="list-disc ml-6 mb-2">{children}</ul>, // Bullet point spacing
+            ol: ({ children }) => <ol className="list-decimal ml-6 mb-2">{children}</ol>, // Numbered list spacing
             blockquote: ({ children }) => (
-              <blockquote className="border-l-4 border-gray-500 pl-4 italic text-gray-300">{children}</blockquote>
-            ), // Nice blockquote style
+              <blockquote className="border-l-4 border-gray-500 pl-4 italic text-gray-300 mb-4">{children}</blockquote>
+            ), // Nice blockquote style with spacing
             code: ({ children }) => (
-              <code className="bg-gray-800 p-3 rounded-md font-mono text-sm">{children}</code>
-            ), // Clean code block formatting
-            hr: () => <hr className="border-t-2 border-gray-700 my-4" />, // Horizontal line formatting
+              <code className="block w-full bg-gray-800 p-4 rounded-md text-sm font-cascadia overflow-x-auto">
+                {children}
+              </code>
+            ), 
+            hr: () => <hr className="border-t-2 border-gray-700 my-4" />,
           }}
         >
           {text}
