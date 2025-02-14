@@ -10,7 +10,7 @@ import {
 import { usePrivy } from "@privy-io/react-auth";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function SideBarContainer({ mobile }) {
+export default function SideBarContainer({ mobile, isOpen, toggleSidebar }) {
   const [userId, setUserId] = useAtom(userIdAtom);
   const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
   const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
