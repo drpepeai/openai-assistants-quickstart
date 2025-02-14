@@ -45,6 +45,7 @@ function PageContainer({ children }) {
   const [threads, setThreads] = useAtom(threadsAtom);
   const { ready, authenticated, user } = usePrivy();
   const [show, setShow] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -62,41 +63,17 @@ function PageContainer({ children }) {
     }
   }, [ready, authenticated, user]);
 
-  useEffect(() => {
-    async function setUp() {
-      const storedThreadIds = localStorage.getItem('threadIds');
-      let newThreads = {};
-
-      if (storedThreadIds) {
-        newThreads = await fetchAllThreads(storedThreadIds);
-      }
-
-      const newThreadId = await createThread();
-      newThreads[newThreadId] = { threadId: newThreadId, messages: [] };
-
-      setThreads(newThreads);
-      setActiveThreadId(newThreadId);
-      setThreadIds([...Object.keys(newThreads)]);
-
-      localStorage.setItem('threadIds', [...Object.keys(newThreads)].join(','));
-    }
-
-    if (typeof window !== 'undefined' && userId) {
-      setUp();
-    }
-  }, [userId]);
-
   return (
     <div className="relative flex flex-row min-h-full h-dvh overflow-y-hidden bg-[#212121]">
       {/* Sidebar */}
       {userId && (
-        <div className="hidden lg:block w-2/12 h-vh relative z-10">
-          <SideBarContainer mobile={false} />
+        <div className={`h-vh relative z-10 transition-all duration-300 ${isSidebarOpen ? 'w-64' : 'w-0'}`}>
+          <SideBarContainer mobile={false} setIsSidebarOpen={setIsSidebarOpen} isSidebarOpen={isSidebarOpen} />
         </div>
       )}
 
       {/* Main Content */}
-      <main className="w-full lg:w-full h-full flex flex-col justify-between overflow-y-auto relative z-10">
+      <main className={`h-full flex flex-col justify-between overflow-y-auto relative z-10 transition-all duration-300 ${isSidebarOpen ? 'w-[calc(100%-16rem)]' : 'w-full'}`}>
         {/* Fixed Header */}
         <div className="fixed top-0 left-0 w-full flex flex-row justify-between items-center px-4 sm:px-6 lg:px-8 py-4 bg-transparent z-50">
           {/* First Image */}
@@ -116,7 +93,7 @@ function PageContainer({ children }) {
         </div>
 
         {/* Page Content */}
-        <div className=" h-full px-4 sm:px-6 lg:px-8 mt-[5rem]  flex flex-col justify-center">
+        <div className="h-full px-4 sm:px-6 lg:px-8 mt-[5rem] flex flex-col justify-center">
           {children}
         </div>
 
@@ -128,7 +105,7 @@ function PageContainer({ children }) {
               onClosePopUpModal={() => setShow(false)}
               classNames="w-full md:hidden"
             >
-              <SideBarContainer mobile={true} />
+              <SideBarContainer mobile={true} setIsSidebarOpen={undefined} isSidebarOpen={undefined} />
             </PopUpModal>
           </div>
         )}

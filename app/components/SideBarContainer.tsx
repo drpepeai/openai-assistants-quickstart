@@ -11,7 +11,7 @@ import { usePrivy } from "@privy-io/react-auth";
 import { XMarkIcon, Bars3Icon, ArrowRightCircleIcon} from "@heroicons/react/24/outline";
 import { useState } from "react";
 
-export default function SideBarContainer({ mobile }) {
+export default function SideBarContainer({  mobile, setIsSidebarOpen, isSidebarOpen }) {
   const [userId, setUserId] = useAtom(userIdAtom);
   const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
   const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
@@ -30,12 +30,12 @@ export default function SideBarContainer({ mobile }) {
     <div className="relative">
       {/* Toggle Button */}
       <div className="fixed bottom-[18px] left-[1.8rem] z-50 flex flex-col gap-2">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 bg-gray-800 text-white rounded-lg"
-        >
-          {isOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
-        </button>
+      <button
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        className="fixed bottom-[18px] left-[1.8rem] z-50 p-2 bg-gray-800 text-white rounded-lg"
+      >
+        {isSidebarOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+      </button>
         {userId && (
           <button
             onClick={handleLogout}
