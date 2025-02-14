@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { AssistantStream } from "openai/lib/AssistantStream";
-import Markdown from "react-markdown";
+import ReactMarkdown from "react-markdown";
 // @ts-expect-error - no types for this yet
 import { AssistantStreamEvent } from "openai/resources/beta/assistants/assistants";
 import { RequiredActionFunctionToolCall } from "openai/resources/beta/threads/runs/runs";
@@ -27,7 +27,13 @@ const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-full">
       <div className="p-4 text-[#D1D1D1] bg-zinc-900; text-sm rounded-md space-y-4 font-primary proses ">
-        <Markdown>{text}</Markdown>
+      <ReactMarkdown
+          components={{
+            p: ({ children }) => <p className="mb-[6rem]">{children}</p>,
+          }}
+        >
+          {text}
+        </ReactMarkdown>
       </div>
     </div>
   );
