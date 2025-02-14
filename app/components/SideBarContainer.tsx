@@ -30,7 +30,7 @@
   return (
     <div className="relative">
       {/* Toggle Button */}
-      <div className="fixed bottom-[18px]  left-[1.8rem] z-50 flex flex-col gap-2">
+      <div className="fixed bottom-[18px]  left-[1.8rem] z-50 flex flex-row gap-2">
         <button
           onClick={toggleSidebar}
           className="p-2 bg-gray-800 text-white rounded-lg"
