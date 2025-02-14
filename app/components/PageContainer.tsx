@@ -95,7 +95,7 @@ function PageContainer({ children }) {
 
       {/* Main Content - Adjusts width dynamically */}
       <main
-        className="h-full flex flex-col justify-between overflow-y-auto transition-all duration-300 bg-[#212121]"
+        className="h-full flex flex-col justify-between overflow-y-auto no-scrollbar transition-all duration-300 bg-[#212121]"
         style={{
           width: isOpen ? "80vw" : "100vw",
           marginLeft: isOpen ? "20vw" : "0",
