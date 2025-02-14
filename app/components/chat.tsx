@@ -23,6 +23,10 @@ const UserMessage = ({ text }: { text: string }) => {
   );
 };
 
+const cleanText = (text: string) => {
+  return text.replace(/【\d+:\d+†source】/g, ""); // Remove all citations like  
+};
+
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-full">
@@ -43,7 +47,7 @@ const AssistantMessage = ({ text }: { text: string }) => {
             hr: () => <hr className="border-t-2 border-gray-700 my-4" />,
           }}
         >
-          {text}
+          {cleanText(text)}
         </ReactMarkdown>
       </div>
     </div>
