@@ -7,3 +7,7 @@
 .font-cascadia {
   font-family: 'Cascadia Code', monospace;
 }
+
+html{
+  overscroll-behavior: none;
+}

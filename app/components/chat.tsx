@@ -26,22 +26,20 @@ const UserMessage = ({ text }: { text: string }) => {
 const AssistantMessage = ({ text }: { text: string }) => {
   return (
     <div className="w-full">
-      <div className="p-4 text-[#D1D1D1] bg-zinc-900 text-sm rounded-md space-y-4 font-primary prose overflow-visible">
-        <ReactMarkdown
+      <div className="p-4 text-[#D1D1D1] bg-zinc-900; text-sm rounded-md space-y-4 font-primary proses ">
+      <ReactMarkdown
           components={{
-            p: ({ children }) => <p className="mb-4 text-justify">{children}</p>,
-            ul: ({ children }) => <ul className="list-disc ml-6 mb-2">{children}</ul>,
-            ol: ({ children }) => <ol className="list-decimal ml-6 mb-2">{children}</ol>,
+            p: ({ children }) => <p className="mb-4 text-justify">{children}</p>, // Balanced paragraph spacing
+            ul: ({ children }) => <ul className="list-disc ml-6 mb-2">{children}</ul>, // Bullet point spacing
+            ol: ({ children }) => <ol className="list-decimal ml-6 mb-2">{children}</ol>, // Numbered list spacing
             blockquote: ({ children }) => (
-              <blockquote className="border-l-4 border-gray-500 pl-4 italic text-gray-300 mb-4">
-                {children}
-              </blockquote>
-            ),
+              <blockquote className="border-l-4 border-gray-500 pl-4 italic text-gray-300 mb-4">{children}</blockquote>
+            ), // Nice blockquote style with spacing
             code: ({ children }) => (
-              <code className="block w-full bg-gray-800 p-4 rounded-md text-sm font-[Cascadia] overflow-x-auto">
+              <code className="block w-full bg-gray-800 p-4 rounded-[12px] text-sm font-cascadia overflow-x-auto">
                 {children}
               </code>
-            ),
+            ), 
             hr: () => <hr className="border-t-2 border-gray-700 my-4" />,
           }}
         >
@@ -51,7 +49,6 @@ const AssistantMessage = ({ text }: { text: string }) => {
     </div>
   );
 };
-
 
 const CodeMessage = ({ text }: { text: string }) => {
   return (
@@ -355,7 +352,7 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
     <div className={`w-full  max-w-[768px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[85vh] md:h-[65vh]" : "justify-center h-full  font-primary"}`}>
 
       {/* Chat Messages Container */}
-      <div className="w-full flex flex-col flex-1 overflow-y-auto space-y-4    font-primary">
+      <div className="w-full flex flex-col flex-1  space-y-4  overflow-auto overscroll-contain   font-primary">
         
         {/* Render Messages in Order */}
         {messages.map((msg, index) => (
