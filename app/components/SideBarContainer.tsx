@@ -58,7 +58,6 @@
                 onClick={() => setActiveThreadId(null)} 
                 className="cursor-pointer font-primary text-zinc-500 mt-2"
               >
-                <p className="text-[#D1D1D1]">New Chat</p>
               </div>
 
            
