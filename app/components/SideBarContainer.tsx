@@ -49,7 +49,7 @@
 
       {/* Sidebar */}
       {isOpen && (
-        <div className="w-[20%] h-full pt-[7rem] fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] pr-0 text-sm font-primary flex flex-col justify-start transition-transform duration-300">
+        <div className="min-w-[300px] h-full pt-[7rem] fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] pr-0 text-sm font-primary flex flex-col justify-start transition-transform duration-300">
             <div className="flex h-[30rem] overflow-scroll flex-col mb-4">
      
               <div className="text-[#5BB8F0] text-[14px] font-primary mb-2">Threads</div>
