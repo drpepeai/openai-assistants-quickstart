@@ -24,9 +24,13 @@ const UserMessage = ({ text }: { text: string }) => {
 };
 
 const AssistantMessage = ({ text }: { text: string }) => {
+  const messageContainerRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <div className="w-full">
-      <div className="p-4 text-[#D1D1D1] bg-zinc-900; text-sm rounded-md space-y-4 font-primary proses ">
+      <div 
+      ref={messageContainerRef}
+      className="p-4 text-[#D1D1D1] bg-zinc-900; text-sm rounded-md space-y-4 font-primary proses overflow-visible ">
       <ReactMarkdown
           components={{
             p: ({ children }) => <p className="mb-4 text-justify">{children}</p>, // Balanced paragraph spacing
