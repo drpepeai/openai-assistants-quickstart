@@ -127,7 +127,7 @@ function PageContainer({ children }) {
  
 
         {/* Page Content */}
-        <div className="h-[80vh] px-4 sm:px-6 lg:px-8 mt-[5rem] pt-[3rem] flex flex-col justify-center">
+        <div className=" px-4 sm:px-6 lg:px-8 pt-[3rem] flex flex-col justify-center">
           {children}
         </div>
       </main>
