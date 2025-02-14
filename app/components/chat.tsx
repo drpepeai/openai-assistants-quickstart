@@ -349,10 +349,10 @@ function InitialChat({ messages, loading, messagesEndRef, userInput, setUserInpu
 
 function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserInput, inputDisabled, handleSubmit }: ChatInterfaceProps) {
   return (
-    <div className={`w-full  max-w-[768px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[85vh] " : "justify-center h-full  font-primary"}`}>
+    <div className={`w-full max-w-[768px] mx-auto flex flex-col ${messages.length > 0 ? "justify-end h-[85vh]" : "justify-center h-full font-primary"}`}>
 
       {/* Chat Messages Container */}
-      <div className="w-full flex flex-col flex-1  space-y-4  overflow-auto overscroll-contain   font-primary">
+      <div className="w-full flex flex-col flex-1 h-[500px] overflow-auto overscroll-contain space-y-4 font-primary">
         
         {/* Render Messages in Order */}
         {messages.map((msg, index) => (
@@ -374,31 +374,32 @@ function ChatInterface({ messages, loading, messagesEndRef, userInput, setUserIn
 
       {/* Input Box */}
       <div className="w-full">
-      <div className="relative">
-        <textarea
-          id="question"
-          name="question"
-          placeholder="Enter your question..."
-          aria-label="question"
-          className="w-full h-28 resize-none px-4 pr-14 py-3 bg-[#303030] text-[#d1d1d1] rounded-[12px]  mt-3 focus:outline-none placeholder:text-zinc-500 border border-zinc-700 font-primary"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-        />
-        
-        {/* Send Button */}
-        <button
-          type="button"
-          className="w-8 h-8 absolute top-[1.3rem] right-2 pb-[2px] bg-[#6CC9FE] text-[#303030] text-[20px] flex items-center justify-center rounded-[12px] shadow-md transition-all hover:bg-[#5BB8F0] disabled:bg-zinc-600 disabled:cursor-not-allowed"
-          disabled={inputDisabled}
-          onClick={handleSubmit}
-        >
-          ↑
-        </button>
-      </div>
+        <div className="relative">
+          <textarea
+            id="question"
+            name="question"
+            placeholder="Enter your question..."
+            aria-label="question"
+            className="w-full h-28 resize-none px-4 pr-14 py-3 bg-[#303030] text-[#d1d1d1] rounded-[12px] mt-3 focus:outline-none placeholder:text-zinc-500 border border-zinc-700 font-primary"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+          />
+          
+          {/* Send Button */}
+          <button
+            type="button"
+            className="w-8 h-8 absolute top-[1.3rem] right-2 pb-[2px] bg-[#6CC9FE] text-[#303030] text-[20px] flex items-center justify-center rounded-[12px] shadow-md transition-all hover:bg-[#5BB8F0] disabled:bg-zinc-600 disabled:cursor-not-allowed"
+            disabled={inputDisabled}
+            onClick={handleSubmit}
+          >
+            ↑
+          </button>
+        </div>
       </div>
 
     </div>
   )
 }
+
 
 
