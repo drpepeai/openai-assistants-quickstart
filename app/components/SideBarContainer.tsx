@@ -8,22 +8,17 @@ import {
   activeThreadIdAtom,
 } from "../utils/atoms/userInfo";
 import { usePrivy } from "@privy-io/react-auth";
-import { XMarkIcon, Bars3Icon, ArrowRightCircleIcon} from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { XMarkIcon, Bars3Icon, ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
-export default function SideBarContainer({ mobile }) {
-  const [userId, setUserId] = useAtom(userIdAtom);
-  const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
+export default function SideBarContainer({ isOpen, toggleSidebar }) {
+  const [userId] = useAtom(userIdAtom);
+  const [threadIds] = useAtom(threadIdsAtom);
   const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
-  const [threads, setThreads] = useAtom(threadsAtom);
+  const [threads] = useAtom(threadsAtom);
   const { logout } = usePrivy();
-  const [isOpen, setIsOpen] = useState(true);
 
   function handleLogout() {
     logout();
-    setUserId(null);
-    setThreadIds([]);
-    setThreads({});
   }
 
   return (
@@ -31,7 +26,7 @@ export default function SideBarContainer({ mobile }) {
       {/* Toggle Button */}
       <div className="fixed bottom-[18px] left-[1.8rem] z-50 flex flex-col gap-2">
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggleSidebar}
           className="p-2 bg-gray-800 text-white rounded-lg"
         >
           {isOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
@@ -48,7 +43,7 @@ export default function SideBarContainer({ mobile }) {
 
       {/* Sidebar */}
       {isOpen && (
-        <div className="w-64 h-full pt-[7rem] fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] pr-0 text-sm font-primary flex flex-col justify-start transition-transform duration-300">
+        <div className="w-[20%] h-full pt-[7rem] fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] pr-0 text-sm font-primary flex flex-col justify-start transition-transform duration-300">
           <div className="flex h-[30rem] overflow-scroll flex-col mb-4">
             <div className="text-[#5BB8F0] text[14px] font-primary">Threads</div>
             {threadIds.map((threadId) => (
@@ -62,10 +57,8 @@ export default function SideBarContainer({ mobile }) {
                     activeThreadId === threadId ? "text-[#D1D1D1]" : "text-zinc-500"
                   } mt-4 font-primary`}
                 >
-                  {threads[threadId].messages.length > 0
-                    ? threads[threadId].messages[0].text.split(" ").length > 7
-                      ? threads[threadId].messages[0].text.split(" ").slice(0, 7).join(" ") + "..."
-                      : threads[threadId].messages[0].text
+                  {threads[threadId]?.messages?.[0]?.text
+                    ? threads[threadId].messages[0].text.split(" ").slice(0, 7).join(" ") + "..."
                     : "New Chat"}
                 </p>
               </div>
