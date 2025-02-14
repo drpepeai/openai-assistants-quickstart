@@ -30,7 +30,7 @@
   return (
     <div className="relative">
       {/* Toggle Button */}
-      <div className="fixed bottom-[18px] left-[1.8rem] z-50 flex flex-col gap-2">
+      <div className="fixed bottom-[18px]  left-[1.8rem] z-50 flex flex-col gap-2">
         <button
           onClick={toggleSidebar}
           className="p-2 bg-gray-800 text-white rounded-lg"
@@ -49,7 +49,7 @@
 
       {/* Sidebar */}
       {isOpen && (
-        <div className="min-w-[300px] z-50 h-full pt-[7rem] fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] pr-0 text-sm font-primary flex flex-col justify-start transition-transform duration-300">
+        <div className="min-w-[300px] z-30 h-full pt-[7rem] fixed left-0 top-0 bg-[#181818] text-[#D1D1D1] px-[1.8rem] pr-0 text-sm font-primary flex flex-col justify-start transition-transform duration-300">
             <div className="flex h-[30rem] overflow-scroll flex-col mb-4">
      
               <div className="text-[#5BB8F0] text-[14px] font-primary mb-2">Threads</div>
