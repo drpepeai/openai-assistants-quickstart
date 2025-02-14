@@ -39,7 +39,7 @@ export default function SideBarContainer({ mobile }) {
         {userId && (
           <button
             onClick={handleLogout}
-            className="p-2 bg-grey-800 text-white rounded-lg flex justify-center items-center gap-2"
+            className="p-2 bg-gray-800 text-white rounded-lg flex justify-center items-center gap-2"
           >
             <ArrowRightCircleIcon className="h-6 w-6" /> 
           </button>
