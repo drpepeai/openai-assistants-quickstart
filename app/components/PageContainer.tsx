@@ -2,12 +2,19 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { userIdAtom } from "../utils/atoms/userInfo";
+import { userIdAtom, activeThreadIdAtom, threadIdsAtom, threadsAtom, } from "../utils/atoms/userInfo";
 import { useAtom } from "jotai";
 import { PrivyProvider, usePrivy } from "@privy-io/react-auth";
 import SideBarContainer from "./SideBarContainer";
+import { createThread, fetchAllThreads } from "../utils";
+import PopUpModal from "./PopUpModal";
+import { toSolanaWalletConnectors } from "@privy-io/react-auth/solana";
 import titlelogo from "../../public/title-logo.svg";
 import wiredlogo from "../../public/wiredlogo.svg";
+
+
+const solanaConnectors = toSolanaWalletConnectors();
+
 
 export default function Page({ children }) {
   return (
@@ -21,6 +28,9 @@ export default function Page({ children }) {
           landingHeader: "Hello, I am Bryan (Demo)",
           loginMessage: "Tell me how I can help you live forever",
         },
+        externalWallets: {
+          solana: { connectors: solanaConnectors },
+        }
       }}
     >
       <PageContainer>
@@ -32,8 +42,12 @@ export default function Page({ children }) {
 
 function PageContainer({ children }) {
   const [userId, setUserId] = useAtom(userIdAtom);
+  const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
+  const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
+  const [threads, setThreads] = useAtom(threadsAtom);
   const [isOpen, setIsOpen] = useState(true);
   const { ready, authenticated, user } = usePrivy();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -50,6 +64,29 @@ function PageContainer({ children }) {
       setUserId(user.id);
     }
   }, [ready, authenticated, user]);
+
+  // Load or create threads
+  useEffect(() => {
+    async function setUp() {
+      const storedThreadIds = localStorage.getItem("threadIds");
+      let newThreads = {};
+      if (storedThreadIds) {
+        newThreads = await fetchAllThreads(storedThreadIds);
+      }
+      const newThreadId = await createThread();
+      newThreads[newThreadId] = { threadId: newThreadId, messages: [] };
+      setThreads(newThreads);
+      setActiveThreadId(newThreadId);
+      setThreadIds([...Object.keys(newThreads)]);
+      localStorage.setItem("threadIds", [...Object.keys(newThreads)].join(","));
+    }
+    if (typeof window !== "undefined" && userId) {
+      setUp();
+    }
+  }, [userId]);
+  // Toggle sidebar state
+  const toggleSidebar = () => setIsOpen((prev) => !prev);
+
 
   return (
     <div className="relative flex flex-row min-h-full h-screen overflow-hidden bg-[#212121]">
@@ -78,6 +115,16 @@ function PageContainer({ children }) {
             <Image src={wiredlogo} alt="logo" className="h-12 w-auto object-contain" />
           </div>
         </div>
+
+         {/* Mobile Sidebar */}
+         {userId && (
+            <div className="fixed z-100 left-0 md:hidden">
+              <PopUpModal visible={show} onClosePopUpModal={() => setShow(false)} classNames="w-full md:hidden">
+                <SideBarContainer mobile={true} isOpen={false} toggleSidebar={false} />
+              </PopUpModal>
+            </div>
+          )}
+ 
 
         {/* Page Content */}
         <div className="h-full px-4 sm:px-6 lg:px-8 mt-[5rem] flex flex-col justify-center">
