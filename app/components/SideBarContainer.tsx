@@ -1,30 +1,31 @@
 "use client";
 
-import { useAtom } from "jotai";
-import {
-  userIdAtom,
-  threadIdsAtom,
-  threadsAtom,
-  activeThreadIdAtom,
-} from "../utils/atoms/userInfo";
-import { usePrivy } from "@privy-io/react-auth";
-import { XMarkIcon, Bars3Icon, ArrowRightCircleIcon} from "@heroicons/react/24/outline";
+  import { useAtom } from "jotai";
+  import {
+    userIdAtom,
+    threadIdsAtom,
+    threadsAtom,
+    activeThreadIdAtom,
+  } from "../utils/atoms/userInfo";
+  import { usePrivy } from "@privy-io/react-auth";
+  import { XMarkIcon, Bars3Icon, ArrowRightCircleIcon } from "@heroicons/react/24/outline";
 
-export default function SideBarContainer({ isOpen, toggleSidebar }) {
-  const [userId, setUserId] = useAtom(userIdAtom);
-  const [threadIds] = useAtom(threadIdsAtom);
-  const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
-  const [threads, setThreads] = useAtom(threadsAtom);
-  const { logout } = usePrivy();
+  
+  export default function SideBarContainer({ mobile, toggleSidebar, isOpen }) {
+    const [userId, setUserId] = useAtom(userIdAtom);
+    const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
+    const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
+    const [threads, setThreads] = useAtom(threadsAtom);
+    const { logout } = usePrivy();
+  
+    function handleLogout() {
+      logout();
+      setUserId(null);
+      setThreadIds([]);
+      setThreads({});
+    }
 
-  function handleLogout() {
-    logout();
-    setUserId(null);
-    setThreads([]);
-    setThreads({});
-    localStorage.removeItem("userId");
-    localStorage.removeItem("threadIds");
-  }
+
 
   return (
     <div className="relative">

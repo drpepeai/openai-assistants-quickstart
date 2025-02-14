@@ -54,7 +54,7 @@ function PageContainer({ children }) {
   return (
     <div className="relative flex flex-row min-h-full h-screen overflow-hidden bg-[#212121]">
       {/* Sidebar */}
-      <SideBarContainer isOpen={isOpen} toggleSidebar={() => setIsOpen(!isOpen)} />
+      <SideBarContainer isOpen={isOpen} toggleSidebar={() => setIsOpen(!isOpen)} mobile={undefined} />
 
       {/* Main Content - Adjusts width dynamically */}
       <main
