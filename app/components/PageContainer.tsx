@@ -2,12 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { userIdAtom } from "../utils/atoms/userInfo";
+import { activeThreadIdAtom, threadIdsAtom, threadsAtom, userIdAtom } from "../utils/atoms/userInfo";
 import { useAtom } from "jotai";
 import { PrivyProvider, usePrivy } from "@privy-io/react-auth";
 import SideBarContainer from "./SideBarContainer";
+import { createThread, fetchAllThreads } from "../utils";
+import PopUpModal from "./PopUpModal";
+import { toSolanaWalletConnectors } from '@privy-io/react-auth/solana';
 import titlelogo from "../../public/title-logo.svg";
 import wiredlogo from "../../public/wiredlogo.svg";
+
+const solanaConnectors = toSolanaWalletConnectors();
 
 export default function Page({ children }) {
   return (
@@ -15,12 +20,15 @@ export default function Page({ children }) {
       appId="cm5urnrtw0081n9ira2i2rx5z"
       config={{
         appearance: {
-          theme: "dark",
-          accentColor: "#676FFF",
-          logo: "https://openai-assistants-quickstart-alpha-five.vercel.app/logo.png",
-          landingHeader: "Hello, I am Bryan (Demo)",
-          loginMessage: "Tell me how I can help you live forever",
+          theme: 'dark',
+          accentColor: '#676FFF',
+          logo: 'https://openai-assistants-quickstart-alpha-five.vercel.app/logo.png',
+          landingHeader: 'Hello, I am Bryan (Demo)',
+          loginMessage: 'Tell me how I can help you live forever',
         },
+        externalWallets: {
+          solana: { connectors: solanaConnectors }
+        }
       }}
     >
       <PageContainer>
@@ -32,12 +40,15 @@ export default function Page({ children }) {
 
 function PageContainer({ children }) {
   const [userId, setUserId] = useAtom(userIdAtom);
-  const [isOpen, setIsOpen] = useState(true);
+  const [threadIds, setThreadIds] = useAtom(threadIdsAtom);
+  const [activeThreadId, setActiveThreadId] = useAtom(activeThreadIdAtom);
+  const [threads, setThreads] = useAtom(threadsAtom);
   const { ready, authenticated, user } = usePrivy();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedUserId = localStorage.getItem("userId");
+    if (typeof window !== 'undefined') {
+      const storedUserId = localStorage.getItem('userId');
       if (storedUserId) {
         setUserId(storedUserId);
       }
@@ -46,44 +57,86 @@ function PageContainer({ children }) {
 
   useEffect(() => {
     if (ready && authenticated && user) {
-      localStorage.setItem("userId", user.id);
+      localStorage.setItem('userId', user.id);
       setUserId(user.id);
     }
   }, [ready, authenticated, user]);
 
-  return (
-    <div className="relative flex flex-row min-h-full h-screen overflow-hidden bg-[#212121]">
-      {/* Sidebar */}
-      <SideBarContainer isOpen={isOpen} toggleSidebar={() => setIsOpen(!isOpen)} mobile={undefined} />
+  useEffect(() => {
+    async function setUp() {
+      const storedThreadIds = localStorage.getItem('threadIds');
+      let newThreads = {};
 
-      {/* Main Content - Adjusts width dynamically */}
-      <main
-        className="h-full flex flex-col justify-between overflow-y-auto transition-all duration-300 bg-[#212121]"
-        style={{
-          width: isOpen ? "80vw" : "100vw",
-          marginLeft: isOpen ? "20vw" : "0",
-        }}
-      >
+      if (storedThreadIds) {
+        newThreads = await fetchAllThreads(storedThreadIds);
+      }
+
+      const newThreadId = await createThread();
+      newThreads[newThreadId] = { threadId: newThreadId, messages: [] };
+
+      setThreads(newThreads);
+      setActiveThreadId(newThreadId);
+      setThreadIds([...Object.keys(newThreads)]);
+
+      localStorage.setItem('threadIds', [...Object.keys(newThreads)].join(','));
+    }
+
+    if (typeof window !== 'undefined' && userId) {
+      setUp();
+    }
+  }, [userId]);
+
+  return (
+    <>
+  
+    <div className="relative border flex flex-row min-h-full h-dvh overflow-y-hidden bg-[#212121]">
+    
+    {/* Sidebar */}
+      
+    <div className="hidden lg:block h-vh relative z-10">
+          <SideBarContainer mobile={false} />
+        </div>
+      {/* Main Content */}
+      <main className="w-full lg:w-full h-full flex flex-col justify-between overflow-y-auto relative z-10">
         {/* Fixed Header */}
         <div className="fixed top-0 left-0 w-full flex flex-row justify-between items-center px-4 sm:px-6 lg:px-8 py-4 bg-transparent z-50">
+          {/* First Image */}
           <span className="flex flex-row items-center">
             <Image
-              onClick={() => window.open("https://www.drpepe.ai/")}
+              onClick={() => window.open('https://www.drpepe.ai/')}
               src={titlelogo}
               alt="logo"
               className="h-6 w-auto object-contain cursor-crosshair"
             />
           </span>
-          <div className="h-12 w-auto cursor-pointer">
+
+          {/* Second Image (Clickable) */}
+          <div className="h-12 w-auto cursor-pointer" onClick={() => setShow(true)}>
             <Image src={wiredlogo} alt="logo" className="h-12 w-auto object-contain" />
           </div>
         </div>
 
         {/* Page Content */}
-        <div className="h-full px-4 sm:px-6 lg:px-8 mt-[5rem] flex flex-col justify-center">
+        <div className=" h-full px-4 sm:px-6 lg:px-8 mt-[5rem]  flex flex-col justify-center">
           {children}
         </div>
+
+        {/* Mobile Sidebar */}
+        {userId && (
+          <div className="fixed z-100 left-0 md:hidden">
+            <PopUpModal
+              visible={show}
+              onClosePopUpModal={() => setShow(false)}
+              classNames="w-full md:hidden"
+            >
+              <SideBarContainer mobile={true} />
+            </PopUpModal>
+          </div>
+        )}
       </main>
     </div>
+
+
+    </>
   );
 }
