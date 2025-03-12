@@ -17,10 +17,9 @@ export async function POST(request, { params: { threadId } }) {
   */
 
 
-
 export async function POST(request: Request) {
   try {
-    const { toolCallOutputs, runId, threadId } = await request.json();
+    const { toolCallOutputs, threadId } = await request.json();
 
     const response = await fetch("https://longevity-v0-api-8457657541fe.herokuapp.com/chat", {
       method: "POST",
