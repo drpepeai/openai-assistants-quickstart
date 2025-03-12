@@ -1,14 +1,26 @@
-import { openai } from "@/app/openai";
+export async function POST(request: Request) {
+  try {
+    const { toolCallOutputs, runId, threadId } = await request.json();
 
-// Send a new message to a thread
-export async function POST(request, { params: { threadId } }) {
-  const { toolCallOutputs, runId } = await request.json();
+    const response = await fetch("https://longevity-v0-api-8457657541fe.herokuapp.com/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        session_id: threadId, 
+        message: JSON.stringify(toolCallOutputs), 
+      }),
+    });
 
-  const stream = openai.beta.threads.runs.submitToolOutputsStream(
-    threadId,
-    runId,
-    { tool_outputs: toolCallOutputs }
-  );
+    if (!response.ok) {
+      throw new Error(`Error from Longevity API: ${response.statusText}`);
+    }
 
-  return new Response(stream.toReadableStream());
+    const responseData = await response.json();
+
+    return new Response(JSON.stringify(responseData), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+  }
 }
